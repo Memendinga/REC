@@ -1,12 +1,87 @@
-Rencontres · Réseautage
-Rejoignez le REC
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>REC — Réseau des Entrepreneurs du Congo</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
-Le Réseau des Entrepreneurs du Congo rassemble celles et ceux qui bâtissent, échangent et se forment ensemble. Laissez vos coordonnées — nous revenons vers vous sur WhatsApp.
+  <div class="rec-page">
+    <div class="rec-card">
 
-Nom complet  
-Ville  
-Secteur d'activité  
-Contact (WhatsApp)  
-Motivation (facultatif)  
-Adhérer au réseau
-Vos informations servent uniquement à organiser le réseau REC.
+      <div class="rec-eyebrow">
+        <div class="rec-quarters">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <span class="rec-eyebrow-text">Rencontres · Réseautage</span>
+      </div>
+
+      <h1 class="rec-title">Rejoignez le <em>REC</em></h1>
+      <p class="rec-sub">
+        Le Réseau des Entrepreneurs du Congo rassemble celles et ceux qui
+        bâtissent, échangent et se forment ensemble. Laissez vos
+        coordonnées — nous revenons vers vous sur WhatsApp.
+      </p>
+
+      <form id="rec-form">
+        <div class="rec-field">
+          <label class="rec-label" for="nom">Nom complet</label>
+          <input class="rec-input" type="text" id="nom" name="nom" placeholder="Votre nom et prénom" required />
+        </div>
+
+        <div class="rec-field">
+          <label class="rec-label" for="ville">Ville</label>
+          <input class="rec-input" type="text" id="ville" name="ville" placeholder="Brazzaville, Pointe-Noire..." required />
+        </div>
+
+        <div class="rec-field">
+          <label class="rec-label" for="secteur">Secteur d'activité</label>
+          <select class="rec-select" id="secteur" name="secteur" required>
+            <option value="">Sélectionnez un secteur</option>
+            <option>Agriculture & élevage</option>
+            <option>Commerce & vente</option>
+            <option>Immobilier</option>
+            <option>Restauration</option>
+            <option>Technologie & digital</option>
+            <option>Artisanat & mode</option>
+            <option>Transport & logistique</option>
+            <option>Services & conseil</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="rec-field">
+          <label class="rec-label" for="contact">Contact (WhatsApp)</label>
+          <input class="rec-input" type="tel" id="contact" name="contact" placeholder="+242 06 000 00 00" required />
+        </div>
+
+        <div class="rec-field">
+          <label class="rec-label" for="motivation">Motivation (facultatif)</label>
+          <textarea class="rec-textarea" id="motivation" name="motivation" placeholder="Pourquoi souhaitez-vous rejoindre le réseau ?"></textarea>
+        </div>
+
+        <button class="rec-submit" type="submit" id="rec-submit-btn">Adhérer au réseau</button>
+        <p class="rec-error" id="rec-error" style="display:none;">
+          Une erreur est survenue. Réessayez, ou écrivez-nous directement sur WhatsApp.
+        </p>
+        <p class="rec-note">Vos informations servent uniquement à organiser le réseau REC.</p>
+      </form>
+
+      <div class="rec-done" id="rec-done" style="display:none;">
+        <div class="rec-quarters" style="margin:0 auto 6px;width:26px;height:26px;">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="rec-done-title">Inscription reçue</div>
+        <p style="font-size:14px;color:#4a4438;margin:0;">
+          Une conversation WhatsApp s'est ouverte pour confirmer votre adhésion au REC.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
