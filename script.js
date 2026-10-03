@@ -1,4 +1,4 @@
-// ============================================================
+Je// ============================================================
 // REC — Réseau des Entrepreneurs du Congo
 // ============================================================
 
@@ -70,7 +70,7 @@ if (joinForm) {
     const name = (data.get("name") || "").toString().trim();
     const activity = (data.get("activity") || "").toString().trim();
     const phone = (data.get("phone") || "").toString().trim();
-    const city = (data.get("ville") || "").toString();
+    const city = (data.get("ville_pays") || "").toString().trim();
     const email = (data.get("email") || "").toString().trim();
 
     if (joinSubmitBtn) {
@@ -83,7 +83,8 @@ if (joinForm) {
       const res = await fetch(FORMSPREE_URL, {
         method: "POST",
         headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({ name, activity, phone, email }),
+        body: JSON.stringify({ name, activity, phone, city, email }),
+
       });
       if (!res.ok) throw new Error("Échec de l'envoi à Formspree");
 
