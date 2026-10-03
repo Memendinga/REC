@@ -93,6 +93,7 @@ if (joinForm) {
         `Nom : ${name}`,
         `Activité / projet : ${activity}`,
         `Téléphone : ${phone}`,
+        `Ville / Pays : ${city}`,
       ];
       if (email) lines.push(`Email : ${email}`);
 
