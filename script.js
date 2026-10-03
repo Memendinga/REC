@@ -70,6 +70,7 @@ if (joinForm) {
     const name = (data.get("name") || "").toString().trim();
     const activity = (data.get("activity") || "").toString().trim();
     const phone = (data.get("phone") || "").toString().trim();
+    const city = (data.get("ville") || "").toString();
     const email = (data.get("email") || "").toString().trim();
 
     if (joinSubmitBtn) {
