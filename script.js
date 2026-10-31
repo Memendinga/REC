@@ -75,45 +75,59 @@ if (joinForm) {
 
     if (joinSubmitBtn) {
       joinSubmitBtn.disabled = true;
-      joinSubmitBtn.textContent = "Envoi en cours…";
+      joinSubmitBtn.textContent = "Envoi en cours… merci de patienter";
     }
 
+    // Message WhatsApp prérempli (préparé avant l'envoi)
+    const lines = [
+      "Bonjour REC, je souhaite rejoindre le réseau.",
+      `Nom : ${name}`,
+      `Activité / projet : ${activity}`,
+      `Téléphone : ${phone}`,
+      `Ville / Pays : ${city}`,
+    ];
+    if (email) lines.push(`Email : ${email}`);
+    const message = encodeURIComponent(lines.join("\n"));
+    const waUrl = REC_WHATSAPP_NUMBER
+      ? `https://wa.me/${REC_WHATSAPP_NUMBER}?text=${message}`
+      : `https://wa.me/?text=${message}`;
+
+    // Ouvre WhatsApp ; si le téléphone bloque la nouvelle fenêtre (iPhone), on y va directement
+    const openWhatsApp = () => {
+      const w = window.open(waUrl, "_blank");
+      if (w) { try { w.opener = null; } catch (e) {} }
+      else window.location.href = waUrl;
+    };
+
+    // Enregistrement via Formspree, avec un délai maximum de 12 secondes
+    // pour ne jamais bloquer l'inscription si le réseau est lent.
+    let saved = false;
     try {
-      // Enregistrement de la demande via Formspree
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 12000);
       const res = await fetch(FORMSPREE_URL, {
         method: "POST",
         headers: { Accept: "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({ name, activity, phone, city, email }),
-
+        signal: controller.signal,
       });
-      if (!res.ok) throw new Error("Échec de l'envoi à Formspree");
-
-      // Ouverture de WhatsApp avec le message prérempli
-      const lines = [
-        "Bonjour REC, je souhaite rejoindre le réseau.",
-        `Nom : ${name}`,
-        `Activité / projet : ${activity}`,
-        `Téléphone : ${phone}`,
-        `Ville / Pays : ${city}`,
-      ];
-      if (email) lines.push(`Email : ${email}`);
-
-      const message = encodeURIComponent(lines.join("\n"));
-
-      if (REC_WHATSAPP_NUMBER) {
-        window.open(`https://wa.me/${REC_WHATSAPP_NUMBER}?text=${message}`, "_blank", "noopener");
-      } else {
-        window.open(`https://wa.me/?text=${message}`, "_blank", "noopener");
-      }
-
-      joinForm.reset();
+      clearTimeout(timer);
+      saved = res.ok;
     } catch (err) {
-      if (joinFormError) joinFormError.style.display = "block";
-    } finally {
-      if (joinSubmitBtn) {
-        joinSubmitBtn.disabled = false;
-        joinSubmitBtn.textContent = "Envoyer ma demande";
-      }
+      saved = false;
+    }
+
+    // Dans tous les cas, la demande part par WhatsApp : aucune inscription n'est perdue.
+    openWhatsApp();
+    if (saved) {
+      joinForm.reset();
+    } else if (joinFormError) {
+      joinFormError.textContent = "Connexion lente : votre demande est envoyée par WhatsApp. Pensez à appuyer sur « Envoyer » dans WhatsApp.";
+      joinFormError.style.display = "block";
+    }
+    if (joinSubmitBtn) {
+      joinSubmitBtn.disabled = false;
+      joinSubmitBtn.textContent = "Envoyer ma demande";
     }
   });
 }
