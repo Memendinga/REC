@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="REC — Réseau des Entrepreneurs congolais. Une communauté nationale pour connecter les entrepreneurs, favoriser les opportunités et contribuer à l'amélioration de l'environnement des affaires en République du Congo." />
-  <title>REC — Réseau des Entrepreneurs congolais</title>
+  <meta name="description" content="REC — Réseau des Entrepreneurs Congolais. Une communauté nationale pour connecter les entrepreneurs, favoriser les opportunités et contribuer à l'amélioration de l'environnement des affaires en République du Congo." />
+  <title>REC — Réseau des Entrepreneurs Congolais</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
       <a href="#accueil" class="brand" aria-label="REC accueil">
         <div class="brand-mark">REC</div>
         <div class="brand-copy">
-          <strong>Réseau des Entrepreneurs congolais</strong>
+          <strong>Réseau des Entrepreneurs Congolais</strong>
           <span>Se connecter. Entreprendre. Construire.</span>
         </div>
       </a>
@@ -59,6 +59,56 @@
         </div>
       </div>
     </section>
+    <!-- ===== BANNIÈRE RENCONTRE 21 NOVEMBRE 2026 ===== -->
+    <section class="rec-event" id="rencontre">
+      <div class="rec-event__card">
+        <div class="rec-event__top">
+          <span class="rec-event__brand">REC 242</span>
+          <span class="rec-event__network">Réseau des Entrepreneurs Congolais</span>
+        </div>
+
+        <h2 class="rec-event__title">ENTREPRENDRE<br>AU CONGO</h2>
+        <p class="rec-event__hook">Et si les bonnes connexions changeaient votre activité&nbsp;?</p>
+        <p class="rec-event__sub">Première rencontre des entrepreneurs</p>
+
+        <p class="rec-event__date">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d4b45e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          21 NOVEMBRE 2026
+        </p>
+        <p class="rec-event__place">Brazzaville</p>
+
+        <a class="rec-event__btn" href="https://forms.gle/eZKgJX41zU7dG8uY8" target="_blank" rel="noopener">
+          <strong>Inscription gratuite et obligatoire</strong>
+          <span>Places limitées — je m'inscris</span>
+        </a>
+
+        <p class="rec-event__tagline">Se connecter • Entreprendre • Construire</p>
+      </div>
+    </section>
+
+    <style>
+      .rec-event { padding: 48px 16px; display: flex; justify-content: center; }
+      .rec-event__card { width: 100%; max-width: 560px; box-sizing: border-box; background: #1c3029; color: #fff; border-radius: 22px; padding: 32px 28px; font-family: inherit; box-shadow: 0 12px 32px rgba(0,0,0,.18); }
+      .rec-event__top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,.25); margin-bottom: 26px; }
+      .rec-event__brand { font-size: 1.6rem; font-weight: 700; }
+      .rec-event__network { color: #d4b45e; font-size: .8rem; font-family: ui-monospace, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
+      .rec-event__title { font-size: clamp(2rem, 8vw, 2.8rem); line-height: 1.1; font-weight: 800; margin: 0 0 16px; color: #fff; }
+      .rec-event__hook { color: #d4b45e; font-size: clamp(1.25rem, 5vw, 1.6rem); font-weight: 700; line-height: 1.3; margin: 0 0 18px; }
+      .rec-event__sub { font-size: 1.15rem; margin: 0 0 18px; color: #fff; }
+      .rec-event__date { display: flex; align-items: center; gap: 12px; font-size: 1.4rem; font-weight: 800; margin: 0 0 14px; color: #fff; }
+      .rec-event__place { font-size: 1.2rem; margin: 0 0 24px; color: #fff; }
+      .rec-event__btn { display: block; text-align: center; text-decoration: none; background: #d4b45e; color: #1c3029; border-radius: 12px; padding: 16px 12px; transition: transform .15s ease, filter .15s ease; }
+      .rec-event__btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+      .rec-event__btn strong { display: block; font-size: 1.15rem; }
+      .rec-event__btn span { display: block; font-size: 1rem; margin-top: 4px; }
+      .rec-event__tagline { margin: 22px 0 0; font-size: .95rem; color: #fff; }
+    </style>
+    <!-- ===== FIN BANNIÈRE ===== -->
 
     <section class="section" id="mission">
       <div class="container">
