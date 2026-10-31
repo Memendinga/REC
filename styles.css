@@ -11,9 +11,9 @@
   --gold: #d9b77a;
   --gold-soft: #ecd3a3;
   --clay: #a87b2c;
-  --paper: #f6f1e7;
-  --paper-alt: #fbf8f1;
-  --white: #fffdf8;
+  --paper: #ffffff;
+  --paper-alt: #f3f6fa;
+  --white: #ffffff;
   --line: rgba(15, 36, 56, 0.12);
   --line-strong: rgba(15, 36, 56, 0.22);
 
@@ -531,3 +531,39 @@ img { max-width: 100%; display: block; }
 .btn-secondary { background: transparent; color: var(--forest-dark); }
 .btn-secondary:hover { background: var(--white); color: var(--forest-dark); }
 .footer p { color: var(--gold-soft); margin-bottom: 6px; }
+
+/* Variante blanc / bleu nuit / doré : le logo se fond dans la page */
+.site-header { background: #fff; border-bottom: 3px solid var(--gold); box-shadow: 0 2px 12px rgba(15, 36, 56, 0.06); }
+.section.soft .card, .section.soft .benefit, .section.soft article { background: #fff; }
+
+/* ===== Agenda : prochaines activités (en-tête, à droite) ===== */
+.nav { order: 2; }
+.agenda { position: relative; margin-left: 6px; }
+.menu-toggle { order: 4; }
+.agenda-toggle { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--gold); background: transparent; color: inherit; font-family: var(--font-display); font-weight: 600; font-size: 0.88rem; cursor: pointer; }
+.agenda-toggle svg { color: var(--gold); }
+.agenda-toggle[aria-expanded="true"] { background: linear-gradient(180deg, var(--gold-soft), var(--gold)); color: #0f2438; }
+.agenda-toggle[aria-expanded="true"] svg { color: #0f2438; }
+.agenda-panel { position: absolute; right: 0; top: calc(100% + 14px); width: 380px; max-height: 70vh; overflow-y: auto; background: linear-gradient(160deg, #163450 0%, #0f2438 100%); color: #fff; border: 1px solid rgba(226,196,142,.3); border-radius: 18px; padding: 20px; box-shadow: 0 20px 44px rgba(10,24,40,.4); opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .2s ease, transform .2s ease, visibility .2s; z-index: 60; }
+.agenda.is-open .agenda-panel { opacity: 1; visibility: visible; transform: none; }
+.agenda-kicker { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-soft) !important; margin: 0 0 12px; }
+.agenda-list { list-style: none; margin: 0; padding: 0; }
+.agenda-item { display: grid; grid-template-columns: 58px 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid rgba(226,196,142,.18); }
+.agenda-item:first-child { border-top: none; padding-top: 4px; }
+.agenda-date { text-align: center; border-radius: 12px; padding: 8px 4px; background: rgba(255,255,255,.06); border: 1px solid rgba(226,196,142,.25); align-self: start; }
+.agenda-date strong { display: block; font-family: var(--font-display); font-size: 1.05rem; color: #fff; }
+.agenda-date span { display: block; font-size: .72rem; color: var(--gold-soft); }
+.agenda-item.is-next .agenda-date { background: linear-gradient(180deg, var(--gold-soft), var(--gold)); border-color: transparent; }
+.agenda-item.is-next .agenda-date strong, .agenda-item.is-next .agenda-date span { color: #0f2438; }
+.agenda-tag { display: inline-block; font-size: .68rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 4px; }
+.agenda-item h4 { margin: 0 0 4px; font-family: var(--font-display); font-size: .98rem; line-height: 1.3; color: #fff; }
+.agenda-item p { margin: 0; font-size: .84rem; line-height: 1.45; color: rgba(255,255,255,.75) !important; }
+.agenda-link { display: inline-block; margin-top: 8px; font-weight: 700; font-size: .86rem; color: var(--gold-soft); }
+@media (max-width: 720px) {
+  .nav.is-open { max-height: 85vh; overflow-y: auto; }
+  .agenda { position: static; margin: 18px 0 0; width: 100%; }
+  .agenda-toggle { display: none; }
+  .agenda-panel { position: static; width: auto; max-height: none; overflow: visible; opacity: 1; visibility: visible; transform: none; box-shadow: none; padding: 16px; }
+}
+.nav a.agenda-link:not(.btn) { color: var(--gold-soft); padding: 0; width: auto; font-weight: 700; }
+.nav a.agenda-link:not(.btn)::after { display: none; }

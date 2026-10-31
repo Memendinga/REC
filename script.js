@@ -228,3 +228,20 @@ if (joinForm) {
 
   start();
 })();
+
+/* ---------------- Agenda (prochaines activités) ---------------- */
+const agenda = document.querySelector(".agenda");
+const agendaToggle = document.querySelector(".agenda-toggle");
+if (agenda && agendaToggle) {
+  const setAgenda = (open) => {
+    agenda.classList.toggle("is-open", open);
+    agendaToggle.setAttribute("aria-expanded", String(open));
+  };
+  agendaToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setAgenda(!agenda.classList.contains("is-open"));
+    if (typeof mainNav !== "undefined" && mainNav) { mainNav.classList.remove("is-open"); menuToggle && menuToggle.setAttribute("aria-expanded", "false"); }
+  });
+  document.addEventListener("click", (e) => { if (!agenda.contains(e.target)) setAgenda(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setAgenda(false); });
+}
