@@ -102,8 +102,9 @@ img { max-width: 100%; display: block; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(243, 237, 224, 0.88);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid var(--line);
 }
 
@@ -115,6 +116,8 @@ img { max-width: 100%; display: block; }
 }
 
 .brand { display: flex; align-items: center; gap: 12px; }
+.brand-logo { display: block; height: 56px; width: auto; }
+@media (max-width: 720px) { .brand-logo { height: 46px; } .nav-wrap { padding: 10px 20px; } }
 
 .brand-mark {
   font-family: var(--font-display);
@@ -499,12 +502,13 @@ img { max-width: 100%; display: block; }
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-    padding: 12px 24px 20px;
+    padding: 0 24px;
     max-height: 0;
     overflow: hidden;
+    visibility: hidden;
     transition: max-height 0.3s ease, padding 0.3s ease;
   }
-  .nav.is-open { max-height: 320px; padding: 16px 24px 24px; }
+  .nav.is-open { max-height: 320px; padding: 16px 24px 24px; visibility: visible; }
   .nav a:not(.btn) { padding: 10px 0; width: 100%; }
   .nav .btn { margin-top: 8px; }
   .cards.three { grid-template-columns: 1fr; }
