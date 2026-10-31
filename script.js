@@ -131,9 +131,9 @@ if (joinForm) {
   const card = canvas.closest(".hero-card");
   let width, height, nodes, animationId;
 
-  const NODE_COLOR = "rgba(224, 189, 107, 0.85)"; // gold-soft
-  const LINE_COLOR = "rgba(224, 189, 107, 0.22)";
-  const ACCENT_NODE = "rgba(181, 72, 46, 0.9)"; // clay, sparse accent
+  const NODE_COLOR = "rgba(236, 211, 163, 0.85)"; // gold-soft
+  const LINE_COLOR = "rgba(236, 211, 163, 0.22)";
+  const ACCENT_NODE = "rgba(217, 183, 122, 0.95)"; // clay, sparse accent
   const LINK_DISTANCE = 150;
   const NODE_COUNT_BASE = 46;
 
