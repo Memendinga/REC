@@ -80,7 +80,14 @@
           </svg>
           21 NOVEMBRE 2026
         </p>
-        <p class="rec-event__place">Brazzaville</p>
+        <p class="rec-event__info">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d4b45e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 14"></polyline></svg>
+          De 11 h à 14 h
+        </p>
+        <p class="rec-event__info rec-event__info--last">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d4b45e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+          Culture Park, Brazzaville
+        </p>
 
         <a class="rec-event__btn" href="https://forms.gle/eZKgJX41zU7dG8uY8" target="_blank" rel="noopener">
           <strong>Inscription gratuite et obligatoire</strong>
@@ -102,6 +109,9 @@
       .rec-event__sub { font-size: 1.15rem; margin: 0 0 18px; color: #fff; }
       .rec-event__date { display: flex; align-items: center; gap: 12px; font-size: 1.4rem; font-weight: 800; margin: 0 0 14px; color: #fff; }
       .rec-event__place { font-size: 1.2rem; margin: 0 0 24px; color: #fff; }
+      .rec-event__info { display: flex; align-items: center; gap: 12px; font-size: 1.15rem; font-weight: 600; margin: 0 0 12px; color: #fff; }
+      .rec-event__info svg { flex-shrink: 0; }
+      .rec-event__info--last { margin-bottom: 24px; }
       .rec-event__btn { display: block; text-align: center; text-decoration: none; background: #d4b45e; color: #1c3029; border-radius: 12px; padding: 16px 12px; transition: transform .15s ease, filter .15s ease; }
       .rec-event__btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
       .rec-event__btn strong { display: block; font-size: 1.15rem; }
