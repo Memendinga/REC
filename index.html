@@ -319,18 +319,19 @@
         </div>
 
         <div class="rec-acc__grid" data-reveal>
-          <article class="rec-acc__card">
+          <article class="rec-acc__card rec-acc__card--featured">
+            <span class="rec-acc__badge">Adhésion</span>
             <div class="rec-acc__icon" aria-hidden="true">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M16.5 14.6c2.6.2 4.5 2.2 4.5 4.9"/></svg>
             </div>
             <h3>Je suis entrepreneur</h3>
             <p>Je recherche des clients, des fournisseurs, des partenaires, des opportunités d’affaires et un réseau professionnel.</p>
             <p class="rec-acc__orient"><strong>Orientation :</strong> adhésion REC 242 et mise en relation REC 242 Connect.</p>
-            <a class="rec-acc__btn" href="#adhesion">Rejoindre le REC</a>
+            <a class="rec-acc__btn" href="#adhesion">Je veux rejoindre le REC</a>
+            <a class="rec-acc__link" href="https://forms.gle/eZKgJX41zU7dG8uY8" target="_blank" rel="noopener">S’inscrire à la rencontre du 21&nbsp;novembre&nbsp;→</a>
           </article>
 
-          <article class="rec-acc__card rec-acc__card--featured">
-            <span class="rec-acc__badge">Diagnostic</span>
+          <article class="rec-acc__card">
             <div class="rec-acc__icon" aria-hidden="true">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12.5h18"/></svg>
             </div>
@@ -361,7 +362,7 @@
               <li><span>2</span>L’équipe REC 242 étudie votre demande et vous recontacte.</li>
               <li><span>3</span>Nous vous proposons un rendez-vous et les modalités du diagnostic.</li>
             </ul>
-            <p class="rec-diag__note">Le diagnostic est une prestation payante : son tarif vous est communiqué après étude de votre demande. Vous souhaitez seulement vous informer&nbsp;? Rejoignez gratuitement la communauté via le formulaire d’adhésion.</p>
+            <p class="rec-diag__note">Le diagnostic est une prestation payante : son tarif vous est communiqué après étude de votre demande. Vous souhaitez seulement vous informer&nbsp;? <a href="#adhesion">Rejoignez la communauté REC 242</a>.</p>
           </div>
 
           <form class="rec-diag__form" id="diagForm">
@@ -433,6 +434,9 @@
       .rec-acc__card--featured .rec-acc__orient strong { color: var(--gold-soft); }
       .rec-acc__card--featured .rec-acc__icon { background: rgba(255,255,255,.1); color: var(--gold-soft); }
       .rec-acc__card--featured .rec-acc__btn { background: linear-gradient(180deg, #ecd3a3, #d9b77a); color: #0f2438; }
+      .rec-acc__link { display: block; text-align: center; margin-top: 12px; font-weight: 600; font-size: .92rem; color: var(--gold-soft); text-decoration: none; }
+      .rec-acc__link:hover { text-decoration: underline; }
+      .rec-diag__note a { color: #0f2438; font-weight: 700; }
       .rec-acc__badge { position: absolute; top: -12px; left: 24px; background: #ecd3a3; color: #0f2438; font-size: .75rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
       .rec-diag { margin-top: 48px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 36px; background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 40px; scroll-margin-top: 110px; }
       .rec-diag__intro h3 { font-size: clamp(1.35rem, 2.2vw, 1.7rem); margin: 6px 0 12px; }
@@ -538,5 +542,28 @@
   </footer>
 
   <script src="script.js"></script>
+  <!-- ===== BARRE MOBILE : ADHÉSION + RENCONTRE ===== -->
+  <div class="rec-stickybar" id="recStickyBar">
+    <a class="rec-stickybar__join" href="#adhesion">Rejoindre le REC</a>
+    <a class="rec-stickybar__event" href="https://forms.gle/eZKgJX41zU7dG8uY8" target="_blank" rel="noopener">Rencontre du 21 nov.</a>
+  </div>
+  <style>
+    .rec-stickybar { display: none; }
+    @media (max-width: 720px) {
+      .rec-stickybar { display: flex; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: rgba(15,36,56,.96); box-shadow: 0 -8px 24px rgba(15,36,56,.25); transition: transform .25s ease; }
+      .rec-stickybar.is-hidden { transform: translateY(110%); }
+      .rec-stickybar a { flex: 1; text-align: center; text-decoration: none; font-weight: 700; font-size: .95rem; border-radius: 10px; padding: 13px 8px; }
+      .rec-stickybar__join { background: linear-gradient(180deg, #ecd3a3, #d9b77a); color: #0f2438; }
+      .rec-stickybar__event { color: #fff; border: 1px solid rgba(236,211,163,.6); }
+      body { padding-bottom: 76px; }
+    }
+  </style>
+  <script>
+    (function () {
+      var bar = document.getElementById("recStickyBar"), target = document.getElementById("adhesion");
+      if (!bar || !target || !("IntersectionObserver" in window)) return;
+      new IntersectionObserver(function (en) { bar.classList.toggle("is-hidden", en[0].isIntersecting); }, { threshold: 0.15 }).observe(target);
+    })();
+  </script>
 </body>
 </html>
