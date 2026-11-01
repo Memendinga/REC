@@ -141,6 +141,15 @@ h1 .tag-pio{font-size:11px;vertical-align:6px}
 .pio-admin{flex-direction:row;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;border-color:var(--gold);background:var(--gold-soft)}
 .pio-admin>div{flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:4px}
 .pio-admin input{max-width:180px}
+.tag-adh{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ok);background:var(--ok-soft);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:3px;font-family:var(--body)}
+.lockbox{display:flex;flex-direction:column;gap:8px;align-items:flex-start;background:var(--surface);border:2px solid var(--gold);border-radius:14px;padding:14px;font-size:14px}
+.lockbox b{font-size:16px;font-family:var(--display)}
+.formules{display:flex;flex-direction:column;gap:10px}
+.formule .prix{text-align:right;font-variant-numeric:tabular-nums}
+.formule .prix s{color:var(--muted);font-size:12px}
+.formule .prix b{font-size:16px}
+.formule .prix span{display:block;font-size:11px;color:var(--muted)}
+.sim{flex-basis:100%;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border-top:1px dashed var(--gold);padding-top:10px}
 .warnbox{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.45}
 .warnbox b{color:inherit}
 .warnbox.strong{background:var(--bad-soft);color:var(--bad);font-size:14px}
@@ -183,7 +192,9 @@ h1 .tag-pio{font-size:11px;vertical-align:6px}
 const CATS=["Agriculture & élevage","Transformation agroalimentaire","Transport & livraison","Emballage & conditionnement","Commerce & distribution","Import-export","Imprimerie & supports","Marketing & réseaux sociaux","Informatique & sites web","Comptabilité & fiscalité","Juridique & création d'entreprise","Financement & microfinance","BTP & immobilier","Événementiel & location","Restauration & traiteur","Mode & beauté","Formation & coaching","Énergie solaire","Fournitures & équipements","Santé & bien-être"];
 const SECTEURS=["Agriculture","Agroalimentaire","Commerce","Services aux entreprises","Transport & logistique","Communication & digital","Finance","BTP & immobilier","Événementiel","Restauration","Mode & beauté","Éducation & formation","Énergie","Santé","Autre"];
 const VILLES=["Brazzaville","Pointe-Noire","Dolisie","Oyo","Autre"];
-const KEY="rec242connect-demo-v4";
+const KEY="rec242connect-demo-v5";
+const FORMULES=[["Impulsion",25000,"2 mises en relation par mois"],["Élan",75000,"6 mises en relation par mois, priorité dans les suggestions"],["Expansion",150000,"Mises en relation illimitées et accompagnées par REC 242"]];
+const REDUC=20;
 /* Filtre : masque numéros, e-mails, liens et pseudos dans tout texte libre */
 function mask(s){let m=false;const rep=()=>{m=true;return "[coordonnée masquée]";};let o=String(s||"");
   o=o.replace(/[A-Z0-9._%+-]+\s*(?:@|\(at\)|\barobase\b)\s*[A-Z0-9-]+(?:\s*(?:\.|\bpoint\b)\s*[A-Z0-9-]+)+/gi,rep);
@@ -230,6 +241,7 @@ function seed(){
     {id:"p10",code:"REC-1010",nom:"Nadège Itoua",entreprise:"Atelier Itoua Couture",secteur:"Mode & beauté",offres:["Mode & beauté"],besoins:["Marketing & réseaux sociaux","Financement & microfinance"],offreTxt:"Tenues en pagne, uniformes d'entreprise.",besoinTxt:"",ville:"Brazzaville",tel:"06 000 00 10",email:"nadege.exemple@mail.cg",partage:{tel:true,email:false},visible:false}
   ].map(p=>Object.assign({exemple:true,suspendu:false,vus:[],charte:true,strikes:[],pionnier:true},p));
   const now=Date.now();
+  P[1].adherent="Élan";P[3].adherent="Expansion";P[8].adherent="Impulsion";
   P[6].strikes=[{d:now-30e6,types:["numéro écrit en lettres"],ctx:"message"}];
   P[9].strikes=[{d:now-40e6,types:["numéro en chiffres"],ctx:"message"},{d:now-39e6,types:["numéro découpé en plusieurs messages"],ctx:"message"}];P[9].suspendu=true;
   return {
@@ -244,6 +256,7 @@ function seed(){
     ],
     phase:"apres",
     finGratuit:"2026-12-31",
+    simul2027:false,
     blocks:[],
     reports:[{id:"s1",by:"p4",who:"p10",motif:"Profil incomplet ou faux",date:now-5000e3,traite:false}],
     codes:["REC-2001","REC-2002","REC-2003","REC-2004","REC-2005"],
@@ -265,6 +278,9 @@ const P=id=>S.profiles.find(p=>p.id===id);
 const me=()=>P(S.me);
 const initials=n=>(n||"?").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");
 const finTxt=()=>{try{return new Date((S.finGratuit||"2026-12-31")+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});}catch(e){return "31 décembre 2026";}};
+const locked=()=>S.simul2027&&!S.admin&&me()&&!me().adherent;
+const fcfa=n=>n.toLocaleString("fr-FR").replace(/\u202f|\u00a0/g," ")+" FCFA";
+const adh=v=>v&&v.adherent?'<span class="tag-adh">Adhérent</span>':"";
 const pio=v=>v&&v.pionnier?'<span class="tag-pio">Pionnier</span>':"";
 const ago=t=>{const m=Math.round((Date.now()-t)/60000);if(m<1)return"à l'instant";if(m<60)return"il y a "+m+" min";const h=Math.round(m/60);if(h<24)return"il y a "+h+" h";return"il y a "+Math.round(h/24)+" j";};
 
@@ -290,6 +306,7 @@ function reasons(m){
 }
 function connectBtn(v){
   const r=activeReq(S.me,v.id);
+  if(!r&&locked())return `<button class="btn gold" data-act="adherer">Adhérer pour entrer en relation</button>`;
   if(!r)return `<button class="btn primary" data-act="ask" data-id="${v.id}">Demander une connexion</button>`;
   if(r.status==="autorisee")return `<span class="status st-autorisee">Autorisée par REC 242</span><button class="btn ghost" data-act="go" data-v="demandes" data-t="echanges">Voir ses coordonnées</button>`;
   if(r.status==="attente")return `<span class="status st-attente">Attente REC 242</span><button class="btn ghost" data-act="go" data-v="demandes" data-t="echanges">Écrire</button>`;
@@ -300,7 +317,7 @@ function personCard(v,showWhy){
   const u=me(),m=match(u,v);
   return `<div class="card">
     <div class="person"><div class="av">${esc(initials(v.nom))}</div>
-      <div class="info"><div class="name">${esc(v.nom)}${pio(v)}${v.exemple?'<span class="tag-ex">exemple</span>':""}</div>
+      <div class="info"><div class="name">${esc(v.nom)}${pio(v)}${adh(v)}${v.exemple?'<span class="tag-ex">exemple</span>':""}</div>
       <div class="co">${esc(v.entreprise)} · ${esc(v.secteur)}${v.ville?" · "+esc(v.ville):""}</div></div></div>
     ${showWhy?reasons(m):""}
     ${activeReq(S.me,v.id)&&activeReq(S.me,v.id).status==="autorisee"?"":`<p class="lock">Coordonnées masquées jusqu'à l'autorisation de REC 242</p>`}
@@ -323,7 +340,10 @@ function vPourToi(){
   const pin=pendingIn().length,opp=newOpps().length;
   let h=`<div class="section-head"><span class="eyebrow">Rencontre du 21 novembre</span><h1>Bonjour ${esc(u.nom.split(" ")[0])}</h1></div>`;
   h+=`<div class="rules"><b>Tes suggestions personnalisées.</b> Tu vois seulement les entrepreneurs dont l'offre ou le besoin correspond au tien. Tu peux leur écrire dans l'appli. Les numéros restent masqués : ils sont transmis quand vous êtes d'accord tous les deux <b>et</b> que REC 242 a autorisé la mise en relation.</div>`;
-  h+=`<div class="pio-box"><span class="pio-seal">Pionnier</span><div><b>Offre de lancement</b><p>Tu fais partie des premiers utilisateurs de REC 242 Connect : tes mises en relation sont <b>gratuites jusqu'au ${finTxt()}</b>. Les modalités évolueront ensuite. Ton badge Pionnier reste sur ton profil.</p></div></div>`;
+  if(locked()){const nIn=pendingIn().length,nM=list.filter(x=>x.m.cherche.length).length;
+    h+=`<div class="lockbox"><b>${nIn+nM} entrepreneurs veulent entrer en relation avec toi.</b><p>Depuis le 1er janvier 2027, les mises en relation sont réservées aux adhérents REC 242. Ton profil reste visible, mais pour envoyer une demande ou répondre, il faut adhérer.</p><button class="btn gold" data-act="adherer">Voir les formules d'adhésion</button></div>`;}
+  else if(S.simul2027)h+=`<div class="pio-box"><span class="pio-seal">Pionnier</span><div><b>Adhérent ${esc(u.adherent)}</b><p>Tes mises en relation sont incluses dans ta formule. Ton badge Pionnier reste sur ton profil.</p></div></div>`;
+  else h+=`<div class="pio-box"><span class="pio-seal">Pionnier</span><div><b>Offre Pionniers</b><p>Tu fais partie des Pionniers de REC 242 Connect : tes mises en relation sont <b>gratuites jusqu'au ${finTxt()}</b>. À partir du 1er janvier 2027, elles seront <b>réservées aux adhérents REC 242</b>. Adhère avant le ${finTxt()} et profite de <b>-${REDUC} % sur ta première année</b>.</p>${u.adherent?`<p class="small"><b>Tu es adhérent ${esc(u.adherent)} : tu es prêt pour 2027.</b></p>`:`<button class="btn gold" data-act="adherer">Adhérer avec l'offre Pionniers</button>`}</div></div>`;
   if(pin)h+=`<div class="alert"><div class="num">${pin}</div><p>${pin>1?"demandes de connexion t'attendent":"demande de connexion t'attend"}</p><button class="btn gold" data-act="go" data-v="demandes" data-t="recues">Répondre</button></div>`;
   if(!u.offres.length&&!u.besoins.length)h+=`<div class="empty">Complète ton profil (ce que tu proposes, ce que tu cherches) pour recevoir des suggestions.<br><br><button class="btn primary" data-act="go" data-v="moi">Compléter mon profil</button></div>`;
   h+=`<div class="section"><div class="section-head"><h2>Ils cherchent ce que tu proposes</h2><p class="small muted">Des clients potentiels. ${opp?`<b style="color:var(--gold-ink)">${opp} nouveau${opp>1?"x":""}</b>`:""}</p></div>`;
@@ -341,7 +361,8 @@ function reqCard(r,side){
   const o=P(side==="in"?r.from:r.to);if(!o)return"";
   const stL=STL[r.status];
   let actions="";
-  if(r.status==="pending"&&side==="in")actions=`<div class="row"><button class="btn primary" data-act="accept" data-id="${r.id}">Accepter</button><button class="btn" data-act="refuse" data-id="${r.id}">Refuser</button><button class="btn ghost" data-act="profile" data-id="${o.id}">Voir le profil</button></div>`;
+  if(r.status==="pending"&&side==="in"&&locked())actions=`<div class="row"><button class="btn gold" data-act="adherer">Adhérer pour répondre</button><button class="btn ghost" data-act="profile" data-id="${o.id}">Voir le profil</button></div>`;
+  else if(r.status==="pending"&&side==="in")actions=`<div class="row"><button class="btn primary" data-act="accept" data-id="${r.id}">Accepter</button><button class="btn" data-act="refuse" data-id="${r.id}">Refuser</button><button class="btn ghost" data-act="profile" data-id="${o.id}">Voir le profil</button></div>`;
   if(r.status==="pending"&&side==="out")actions=`<div class="row"><button class="btn" data-act="cancel" data-id="${r.id}">Annuler la demande</button></div>`;
   return `<div class="card"><div class="person"><div class="av">${esc(initials(o.nom))}</div><div class="info"><div class="name">${esc(o.nom)}</div><div class="co">${esc(o.entreprise)} · ${ago(r.date)}</div></div><span class="status st-${r.status}">${stL}</span></div>
   ${r.msg?`<p style="font-size:14px">« ${esc(r.msg)} »</p>`:""}
@@ -440,7 +461,8 @@ function vAdmin(){
   return `<div class="section-head"><span class="eyebrow">Tableau de bord REC 242</span><h1>Suivi des connexions</h1></div>
   <div class="rules"><b>Supervision sans surveillance.</b> L'équipe autorise les mises en relation et voit les chiffres, les statuts et les résultats déclarés. Elle ne voit ni le contenu des messages, ni les coordonnées.</div>
   <div class="card phase"><div><span class="eyebrow">Phase en cours</span><h3>${S.phase==="evenement"?"Jour de la rencontre : autorisations fermées":"Après la rencontre : autorisations ouvertes"}</h3><p class="small muted">${S.phase==="evenement"?"Le 21 novembre, les participants créent leur profil, envoient des demandes et échangent. Aucune coordonnée n'est transmise.":"Chaque mise en relation est validée à la main par l'équipe, "+DELAI+"."}</p></div><button class="btn" data-act="phase">${S.phase==="evenement"?"Ouvrir les autorisations":"Revenir au jour J"}</button></div>
-  <div class="card pio-admin"><div><span class="eyebrow">Phase de lancement Pionniers</span><h3>Mises en relation gratuites jusqu'au ${finTxt()}</h3><p class="small muted">${prof.filter(p=>p.pionnier).length} Pionniers. Après cette date, les nouvelles règles (formules d'adhésion) s'appliqueront.</p></div><label class="f small">Fin de la gratuité<input type="date" id="fin-gratuit" value="${esc(S.finGratuit||"2026-12-31")}"></label></div>
+  <div class="card pio-admin"><div><span class="eyebrow">Offre Pionniers</span><h3>Mises en relation gratuites jusqu'au ${finTxt()}</h3><p class="small muted">${prof.filter(p=>p.pionnier).length} Pionniers, dont ${prof.filter(p=>p.pionnier&&p.adherent).length} déjà adhérents. Réduction Pionnier : -${REDUC} % sur la première année pour une adhésion avant cette date. Rappels prévus 15 jours et 7 jours avant. Ensuite, mises en relation réservées aux adhérents.</p></div><label class="f small">Fin de la gratuité<input type="date" id="fin-gratuit" value="${esc(S.finGratuit||"2026-12-31")}"></label>
+  <div class="sim"><span class="small"><b>Démo :</b> voir l'application comme après le 31 décembre</span><button class="btn ${S.simul2027?"primary":""}" data-act="sim">${S.simul2027?"Simulation 2027 activée":"Simuler 2027"}</button></div></div>
   <div class="section"><div class="section-head"><h2>Mises en relation à autoriser (${queue.length})</h2><p class="small muted">Les plus anciennes en premier. Délai visé : 5 jours.</p></div>
   ${queue.length?queue.map(qCard).join(""):`<div class="empty">Aucune mise en relation en attente.</div>`}</div>
   <div class="stats">
@@ -470,7 +492,7 @@ function vLogin(){
   const used=S.profiles.filter(p=>!p.suspendu).slice(0,6);
   return `<div class="login">
   <div class="hero"><span class="eyebrow">21 novembre · Culture Park · 11 h–14 h</span><h1>REC 242 <span class="gold">Connect</span></h1><p class="muted">Mise en relation professionnelle ciblée et supervisée. Dis ce que tu proposes et ce que tu cherches : on te présente les entrepreneurs avec qui faire affaire.</p>
-  <ul class="four"><li>Pas d'annuaire ouvert à tous</li><li>Suggestions selon ton offre et tes besoins</li><li>Échanges dans l'appli, numéros toujours masqués</li><li>Partager ses coordonnées avant l'autorisation = suspension puis bannissement</li><li>Coordonnées transmises après votre accord à tous les deux et l'autorisation de REC 242</li><li>Suivi des résultats par REC 242, sans lire vos échanges</li><li><b>Offre Pionniers : mises en relation gratuites jusqu'au 31 décembre 2026</b></li></ul></div>
+  <ul class="four"><li>Pas d'annuaire ouvert à tous</li><li>Suggestions selon ton offre et tes besoins</li><li>Échanges dans l'appli, numéros toujours masqués</li><li>Partager ses coordonnées avant l'autorisation = suspension puis bannissement</li><li>Coordonnées transmises après votre accord à tous les deux et l'autorisation de REC 242</li><li>Suivi des résultats par REC 242, sans lire vos échanges</li><li><b>Offre Pionniers : mises en relation gratuites jusqu'au 31 décembre 2026, puis réservées aux adhérents REC 242</b></li></ul></div>
   <form id="login" class="card" novalidate><label class="f">Ton code d'invitation<span class="hint">Reçu après ton inscription à la rencontre</span><input type="text" id="code" placeholder="REC-0000" autocomplete="off" autocapitalize="characters"></label>
   ${loginErr?`<p class="err">${esc(loginErr)}</p>`:""}<button class="btn primary full" type="submit">Entrer</button></form>
   <div class="section"><div class="section-head"><span class="eyebrow">Démo : touche un code pour entrer</span></div>
@@ -491,6 +513,12 @@ function sheetHTML(){
     <div class="section"><span class="eyebrow">Recherche</span><div class="chips">${v.besoins.map(c=>`<span class="chip ${me().offres.includes(c)?"hit":""}">${esc(c)}</span>`).join("")}</div>${v.besoinTxt?`<p>${esc(v.besoinTxt)}</p>`:""}</div>
     <div class="row">${connectBtn(v)}</div><div class="divider"></div>
     <div class="row"><button class="btn ghost" data-act="report" data-id="${v.id}">Signaler ce profil</button><button class="btn ghost" data-act="block" data-id="${v.id}">Bloquer</button></div>`;
+  }
+  if(sheet.type==="adh"){
+    const u=me();
+    inner=`<h2>Adhérer à REC 242</h2><p class="small muted">${S.simul2027?"Les mises en relation sont réservées aux adhérents.":"Offre Pionniers : -"+REDUC+" % sur ta première année si tu adhères avant le "+finTxt()+"."}</p>
+    <div class="formules">${FORMULES.map(([n,p,d])=>{const red=!S.simul2027;return `<div class="card formule"><div class="row" style="justify-content:space-between"><h3>${n}</h3><div class="prix">${red?`<s>${fcfa(p)}</s> <b>${fcfa(Math.round(p*(100-REDUC)/100))}</b>`:`<b>${fcfa(p)}</b>`}<span>/ an</span></div></div><p class="small">${d}</p><button class="btn ${n==="Élan"?"primary":""}" data-act="adh-ok" data-f="${n}">Choisir ${n}</button></div>`;}).join("")}</div>
+    <p class="small muted">Démo : aucun paiement n'est demandé. Dans la vraie version, le paiement se fera en ligne sur le site REC 242.</p>`;
   }
   if(sheet.type==="warn"){
     inner=`<div class="warnhead"><span class="big">!</span><div><h2>Message bloqué</h2><p class="small">Détecté : ${esc(sheet.types.join(", "))}</p></div></div>
@@ -601,6 +629,9 @@ document.addEventListener("click",e=>{
     case"authorize":case"reject":{const r=S.requests.find(x=>x.id===t.dataset.id);r.status=a==="authorize"?"autorisee":"rejetee";r.authAt=Date.now();save();render();toast(a==="authorize"?"Mise en relation autorisée : coordonnées transmises":"Mise en relation non autorisée");break;}
     case"ban":{const p=P(t.dataset.id);p.banni=true;p.suspendu=true;p.visible=false;S.requests.forEach(r=>{if((r.from===p.id||r.to===p.id)&&["pending","attente"].includes(r.status))r.status="rejetee";});save();render();toast(p.nom.split(" ")[0]+" est banni de REC 242 Connect");break;}
     case"unsusp":{const p=P(t.dataset.id);p.suspendu=false;p.strikes=[];save();render();toast("Suspension levée");break;}
+    case"adherer":sheet={type:"adh"};render();break;
+    case"adh-ok":{const u=me();u.adherent=t.dataset.f;save();sheet=null;render();toast("Bienvenue parmi les adhérents "+t.dataset.f+" !");break;}
+    case"sim":S.simul2027=!S.simul2027;save();render();toast(S.simul2027?"Simulation : après le 31 décembre 2026":"Retour à la phase Pionniers");break;
     case"phase":S.phase=S.phase==="evenement"?"apres":"evenement";save();render();break;
     case"logout":S.me=null;S.admin=false;loginErr="";sheet=null;draft=null;save();render();window.scrollTo(0,0);break;
     case"code":login(t.dataset.c);window.scrollTo(0,0);break;
