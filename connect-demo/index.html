@@ -1,0 +1,606 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow, noarchive"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>REC 242 Connect</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one-column mobile app, light by choice (REC 242 charter): light-blue ground, white header, night-blue text, gold marks the matches */
+:root{
+  --bg:#E6F0FB; --surface:#FFFFFF; --sky:#D4E6F8; --ink:#0E1E3D; --muted:#51607A; --line:#CFDDEE;
+  --gold:#C9A23A; --gold-ink:#7D600E; --gold-soft:#FBF3DC;
+  --night:#0E1E3D; --on-night:#F3F6FB; --night-muted:#A9B8D3;
+  --ok:#1E7F4F; --ok-soft:#E1F3E9; --warn:#A6520F; --warn-soft:#FCEBDD; --bad:#B42318; --bad-soft:#FDE6E4;
+  --display:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);color:var(--ink);border-bottom:3px solid var(--gold)}
+header.top .wrap{padding-block:12px;display:flex;align-items:center;gap:12px}
+.logo{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.01em;line-height:1}
+.logo b{color:var(--gold)}
+.event{font-size:12px;color:var(--muted);line-height:1.3}
+.me{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:4px 10px 4px 4px;font-size:13px;max-width:48%}
+.me span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.av{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;background:var(--gold);color:#1B1505}
+.av.lg{width:52px;height:52px;font-size:18px}
+.demo{background:var(--gold-soft);color:var(--gold-ink);font-size:13px;border-bottom:1px solid var(--line)}
+.demo .wrap{padding-block:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.demo button{background:none;border:0;padding:0;text-decoration:underline;color:inherit;font-weight:600}
+main{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+main .wrap{padding-block:18px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:26px;font-weight:800;line-height:1.15}
+h2{font-size:18px;font-weight:800}
+h3{font-size:16px;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.section{display:flex;flex-direction:column;gap:10px}
+.section-head{display:flex;flex-direction:column;gap:2px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.person{display:flex;gap:12px;align-items:flex-start}
+.person .info{min-width:0;flex:1}
+.person .name{font-weight:700;font-size:16px;line-height:1.25}
+.person .co{color:var(--muted);font-size:13px}
+.tag-ex{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:2px}
+.why{display:flex;flex-direction:column;gap:6px}
+.reason{display:flex;gap:8px;align-items:flex-start;background:var(--gold-soft);color:var(--gold-ink);border-radius:10px;padding:8px 10px;font-size:13px;font-weight:600;line-height:1.35}
+.reason::before{content:"";flex:none;width:8px;height:8px;margin-top:5px;border-radius:50%;background:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--muted);background:var(--bg)}
+.chip.hit{border-color:var(--gold);color:var(--gold-ink);background:var(--gold-soft);font-weight:600}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:600;font-size:14px;line-height:1.2}
+.btn.primary{background:var(--night);color:var(--on-night);border-color:var(--night)}
+.btn.gold{background:var(--gold);color:#1B1505;border-color:var(--gold)}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted);padding-inline:6px}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn[disabled]{opacity:.55;cursor:default}
+.btn.full{width:100%}
+.status{font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
+.st-pending{background:var(--warn-soft);color:var(--warn)}
+.st-accepted{background:var(--ok-soft);color:var(--ok)}
+.st-refused,.st-cancelled{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.st-bad{background:var(--bad-soft);color:var(--bad)}
+.alert{background:var(--sky);color:var(--ink);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center}
+.alert .num{font-family:var(--display);font-weight:800;font-size:30px;color:var(--gold-ink);line-height:1;font-variant-numeric:tabular-nums}
+.alert p{font-size:14px}
+.alert .btn{margin-left:auto;flex:none}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:18px;text-align:center;color:var(--muted);font-size:14px}
+label.f{display:flex;flex-direction:column;gap:5px;font-weight:600;font-size:14px}
+label.f .hint{font-weight:400;color:var(--muted);font-size:12px}
+input[type=text],input[type=tel],input[type=email],input[type=search],select,textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px}
+textarea{resize:vertical;min-height:72px}
+.picker{display:flex;flex-wrap:wrap;gap:6px}
+.picker button{font-size:13px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px}
+.picker button[aria-pressed="true"]{background:var(--night);color:var(--on-night);border-color:var(--night)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.check input{margin-top:3px;width:18px;height:18px;accent-color:var(--gold)}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
+.seg button{flex:1;border:0;background:none;border-radius:9px;padding:8px 4px;font-weight:600;font-size:13px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--bg);color:var(--ink)}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.filters input{grid-column:1/-1}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .wrap{display:grid;grid-template-columns:repeat(4,1fr);padding-block:6px}
+nav.tabs button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;font-size:11px;font-weight:600;color:var(--muted);position:relative}
+nav.tabs button[aria-current="page"]{color:var(--ink)}
+nav.tabs svg{width:22px;height:22px}
+nav.tabs button[aria-current="page"] svg{color:var(--gold)}
+.badge{position:absolute;top:2px;left:calc(50% + 6px);min-width:18px;height:18px;border-radius:9px;background:var(--bad);color:#fff;font-size:11px;display:grid;place-items:center;padding:0 5px;font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
+.stat .v{font-family:var(--display);font-weight:800;font-size:26px;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat .l{font-size:12px;color:var(--muted)}
+.contact{display:flex;justify-content:space-between;gap:10px;align-items:center;background:var(--bg);border-radius:10px;padding:8px 10px;font-size:14px}
+.contact b{font-variant-numeric:tabular-nums;word-break:break-all}
+.sheet-bg{position:fixed;inset:0;z-index:40;background:rgba(6,14,31,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:640px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:14px}
+.sheet .x{align-self:flex-end;margin-bottom:-8px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:50;background:var(--night);color:var(--on-night);padding:10px 16px;border-radius:999px;font-size:14px;font-weight:600;max-width:calc(100% - 32px);text-align:center;box-shadow:0 6px 20px rgba(6,14,31,.25)}
+.login{min-height:calc(100vh - 120px);display:flex;flex-direction:column;gap:18px;justify-content:center}
+.hero{background:linear-gradient(160deg,var(--surface) 0%,var(--sky) 100%);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.hero h1{color:var(--ink)}
+.hero .gold{color:var(--gold)}
+.codes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.codes button{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13px;min-width:0}
+.codes button b{display:block;font-variant-numeric:tabular-nums}
+.codes button span{color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.err{color:var(--bad);font-size:13px;font-weight:600}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.tbl table{border-collapse:collapse;width:100%;min-width:520px;font-size:13px}
+.tbl th,.tbl td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tbl tr:last-child td{border-bottom:0}
+.divider{height:1px;background:var(--line)}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:4px 12px 12px 4px;padding:10px 12px;font-size:13px;color:var(--muted);line-height:1.45}
+.rules b{color:var(--ink)}
+.lock{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.lock::before{content:"";width:10px;height:8px;border:1.5px solid currentColor;border-radius:2px;box-shadow:0 -4px 0 -1.5px var(--surface),0 -5px 0 0 currentColor;margin-top:4px;flex:none}
+.four{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.four li{display:flex;gap:8px;align-items:flex-start;color:var(--ink)}
+.four li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:6px}
+.bar{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 28px;gap:10px;align-items:center;font-size:13px}
+.bar .track{height:10px;background:var(--bg);border-radius:5px;overflow:hidden}
+.bar .fill{height:100%;background:var(--gold);border-radius:5px}
+.bar b{text-align:right;font-variant-numeric:tabular-nums}
+td.num{font-variant-numeric:tabular-nums;text-align:right}
+.warnbox{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.45}
+.warnbox b{color:inherit}
+.warnbox.strong{background:var(--bad-soft);color:var(--bad);font-size:14px}
+.warnhead{display:flex;gap:12px;align-items:center}
+.warnhead .big{flex:none;width:44px;height:44px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:24px}
+.st-attente{background:var(--warn-soft);color:var(--warn)}
+.st-autorisee{background:var(--ok-soft);color:var(--ok)}
+.st-rejetee{background:var(--bad-soft);color:var(--bad)}
+.thread{display:flex;flex-direction:column;gap:8px;background:var(--bg);border-radius:12px;padding:10px}
+.msg{max-width:85%;align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px 12px 12px 4px;padding:7px 10px}
+.msg.mine{align-self:flex-end;background:var(--gold-soft);border-color:transparent;border-radius:12px 12px 4px 12px}
+.msg p{font-size:14px;overflow-wrap:anywhere}
+.msg span{font-size:11px;color:var(--muted)}
+.masked{display:inline-block;font-size:12px;font-weight:600;color:var(--muted);background:var(--bg);border:1px dashed var(--muted);border-radius:6px;padding:0 6px}
+.chat{display:flex;gap:8px}
+.chat input{flex:1;min-width:0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:11px;text-align:center;color:var(--muted)}
+.steps span{border-top:3px solid var(--line);padding-top:5px;line-height:1.25}
+.steps .done{border-color:var(--ok);color:var(--ink)}
+.steps .now{border-color:var(--gold);color:var(--gold-ink);font-weight:700}
+.authbox{display:flex;flex-direction:column;gap:8px;background:var(--ok-soft);border-radius:12px;padding:10px}
+.authbox .contact{background:var(--surface)}
+.phase{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.phase>div{flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.pair{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.pair div{display:flex;flex-direction:column;min-width:0}
+.pair span{font-size:12px;color:var(--muted)}
+.pair .arrow{font-size:18px;color:var(--gold-ink)}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px;font-size:13px}
+.checks .ok{color:var(--ok)}
+.checks .ko{color:var(--bad);font-weight:600}
+.tbl td:nth-child(2){white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}}}
+</style>
+
+<div id="app"></div>
+
+<script>
+(function(){
+const CATS=["Agriculture & élevage","Transformation agroalimentaire","Transport & livraison","Emballage & conditionnement","Commerce & distribution","Import-export","Imprimerie & supports","Marketing & réseaux sociaux","Informatique & sites web","Comptabilité & fiscalité","Juridique & création d'entreprise","Financement & microfinance","BTP & immobilier","Événementiel & location","Restauration & traiteur","Mode & beauté","Formation & coaching","Énergie solaire","Fournitures & équipements","Santé & bien-être"];
+const SECTEURS=["Agriculture","Agroalimentaire","Commerce","Services aux entreprises","Transport & logistique","Communication & digital","Finance","BTP & immobilier","Événementiel","Restauration","Mode & beauté","Éducation & formation","Énergie","Santé","Autre"];
+const VILLES=["Brazzaville","Pointe-Noire","Dolisie","Oyo","Autre"];
+const KEY="rec242connect-demo-v3";
+/* Filtre : masque numéros, e-mails, liens et pseudos dans tout texte libre */
+function mask(s){let m=false;const rep=()=>{m=true;return "[coordonnée masquée]";};let o=String(s||"");
+  o=o.replace(/[A-Z0-9._%+-]+\s*(?:@|\(at\)|\barobase\b)\s*[A-Z0-9-]+(?:\s*(?:\.|\bpoint\b)\s*[A-Z0-9-]+)+/gi,rep);
+  o=o.replace(/(?:https?:\/\/|www\.|wa\.me\/|chat\.whatsapp\.com)\S*/gi,rep);
+  o=o.replace(/@[A-Za-z0-9_.]{3,}/g,rep);
+  o=o.replace(/\+?\d[\d\s.\-\/()]{5,}\d/g,x=>x.replace(/\D/g,"").length>=7?rep():x);
+  return {text:o,masked:m};}
+/* Détection anti-contournement : chiffres, lettres (français, anglais, lingala), découpage en plusieurs messages, e-mails, liens, réseaux */
+const NUMW=new Set("zero un une deux trois quatre cinq six sept huit neuf dix onze douze treize quatorze quinze seize vingt vingts trente quarante cinquante soixante septante huitante octante nonante cent cents one two three four five seven eight nine ten moko mibale misato minei mitano motoba sambo nsambo mwambe libwa zomi".split(" "));
+function nrm(s){return String(s||"").normalize("NFKC").replace(/[️⃣]/g,"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();}
+function digitHit(s){
+  const x=nrm(s).replace(/\b\d{1,2}[\/.-]\d{1,2}[\/.-]\d{2,4}\b/g," date ").replace(/\b\d{1,2}\s*h\s*\d{0,2}\b/g," heure ").replace(/(\d)\s*o(?![a-z])/g,"$10").replace(/(^|[^a-z])o\s*(\d)/g,"$10$2").replace(/(\d)\s*[l|](?![a-z])/g,"$11");
+  const re=/\+?\d[\d\s.\-\/()_*]*\d/g;let m;
+  while((m=re.exec(x))){const d=m[0].replace(/\D/g,"");const after=x.slice(m.index+m[0].length,m.index+m[0].length+10);
+    if(d.length>=8&&!/^\s*(f\b|fcfa|francs?|xaf|kg|tonnes?|t\b|m3|m2|litres?|l\b|ha\b|hectares?|%|poulets|pieces|unites)/.test(after))return true;}
+  return false;}
+function wordHit(s){const toks=nrm(s).split(/[^a-z0-9]+/).filter(Boolean);let run=0,best=0;
+  for(const t of toks){if(NUMW.has(t)||/^\d{1,4}$/.test(t)){run+=/^\d{3,4}$/.test(t)?2:1;best=Math.max(best,run);}else if(t!=="et")run=0;}
+  return best>=6;}
+function detect(t,prev){const n=nrm(t),types=[];
+  if(/[a-z0-9._%+-]+\s*(@|\(at\)|\barobase\b)/.test(n)||/\b(gmail|yahoo|hotmail|outlook|icloud)\b/.test(n))types.push("e-mail");
+  if(/(https?:\/\/|www\.|wa\.me|chat\.whatsapp|t\.me\/)/.test(n))types.push("lien");
+  if(/(^|\s)@[a-z0-9_.]{3,}/.test(n)||/\b(ajoute|cherche|trouve|ecris|contacte|suis)[- ]?(moi|nous)\b[^.]{0,20}\b(facebook|fb|insta|instagram|tiktok|telegram|whatsapp|snap|messenger)\b/.test(n)||/\b(mon|ma|notre)\s+(compte|page|profil|num|numero|contact)\s+(facebook|fb|insta|instagram|tiktok|telegram|whatsapp|snap)\b/.test(n))types.push("réseau social");
+  if(digitHit(t))types.push("numéro en chiffres");
+  else if(wordHit(t))types.push("numéro écrit en lettres");
+  else if(prev&&prev.length){const all=prev.concat([t]).join(" ");if(digitHit(all)||wordHit(all))types.push("numéro découpé en plusieurs messages");}
+  return types;}
+const RULE_TXT="Ne partage pas tes coordonnées avant l'autorisation de REC 242 : ni en chiffres, ni en lettres, ni en plusieurs messages. Toute tentative bloque le message. À la 2e tentative, ton compte est suspendu et peut être banni définitivement.";
+const STL={pending:"En attente de réponse",attente:"Attente REC 242",autorisee:"Autorisée",refused:"Refusée",cancelled:"Annulée",rejetee:"Non autorisée"};
+const DELAI="dans les 5 jours après la rencontre (au plus tard le 26 novembre)";
+const RESULTATS=["Pas encore de contact","Premier échange","Rendez-vous pris","Devis ou proposition envoyé","Affaire conclue","Pas de suite"];
+
+function seed(){
+  const P=[
+    {id:"p1",code:"REC-1001",nom:"Paul Mabiala",entreprise:"Ferme Mabiala – Odziba",secteur:"Agriculture",offres:["Agriculture & élevage"],besoins:["Transport & livraison","Emballage & conditionnement","Financement & microfinance"],offreTxt:"Poulets de chair, tilapias, piments. Livraison possible en gros.",besoinTxt:"Un transporteur régulier Odziba–Brazzaville, 2 fois par semaine.",ville:"Brazzaville",tel:"06 000 00 01",email:"paul.exemple@mail.cg",partage:{tel:true,email:true},visible:true},
+    {id:"p2",code:"REC-1002",nom:"Marie Okemba",entreprise:"Okemba Express",secteur:"Transport & logistique",offres:["Transport & livraison"],besoins:["Marketing & réseaux sociaux","Agriculture & élevage"],offreTxt:"Camionnettes réfrigérées, trajets Brazzaville et départements.",besoinTxt:"Des clients agriculteurs et une page Facebook qui attire.",ville:"Brazzaville",tel:"06 000 00 02",email:"marie.exemple@mail.cg",partage:{tel:true,email:false},visible:true},
+    {id:"p3",code:"REC-1003",nom:"Junior Nkounkou",entreprise:"NK Print",secteur:"Communication & digital",offres:["Imprimerie & supports","Emballage & conditionnement"],besoins:["Comptabilité & fiscalité","Financement & microfinance"],offreTxt:"Étiquettes, sachets imprimés, flyers, kakémonos.",besoinTxt:"Un comptable pour tenir mes comptes chaque mois.",ville:"Brazzaville",tel:"06 000 00 03",email:"junior.exemple@mail.cg",partage:{tel:true,email:true},visible:true},
+    {id:"p4",code:"REC-1004",nom:"Sandrine Loubaki",entreprise:"Cabinet SL Conseil",secteur:"Services aux entreprises",offres:["Comptabilité & fiscalité","Juridique & création d'entreprise"],besoins:["Informatique & sites web","Imprimerie & supports"],offreTxt:"Tenue comptable, déclarations fiscales, création d'entreprise.",besoinTxt:"Un site web pour mon cabinet et des cartes de visite.",ville:"Brazzaville",tel:"06 000 00 04",email:"sandrine.exemple@mail.cg",partage:{tel:false,email:true},visible:true},
+    {id:"p5",code:"REC-1005",nom:"Arnaud Ibara",entreprise:"Ibara Digital",secteur:"Communication & digital",offres:["Informatique & sites web","Marketing & réseaux sociaux"],besoins:["Financement & microfinance","Formation & coaching"],offreTxt:"Sites web, pages Facebook et TikTok, publicités en ligne.",besoinTxt:"Un financement pour acheter du matériel vidéo.",ville:"Brazzaville",tel:"06 000 00 05",email:"arnaud.exemple@mail.cg",partage:{tel:true,email:true},visible:true},
+    {id:"p6",code:"REC-1006",nom:"Christelle Bouanga",entreprise:"Saveurs du Pool",secteur:"Agroalimentaire",offres:["Transformation agroalimentaire","Restauration & traiteur"],besoins:["Agriculture & élevage","Emballage & conditionnement","Imprimerie & supports"],offreTxt:"Jus naturels, confitures, plats pour événements.",besoinTxt:"Des fruits et du piment en gros, et des étiquettes pour mes bouteilles.",ville:"Brazzaville",tel:"06 000 00 06",email:"christelle.exemple@mail.cg",partage:{tel:true,email:false},visible:true},
+    {id:"p7",code:"REC-1007",nom:"Rodrigue Ngoma",entreprise:"Mutuelle Ngoma Crédit",secteur:"Finance",offres:["Financement & microfinance"],besoins:["Marketing & réseaux sociaux"],offreTxt:"Microcrédits pour petites entreprises et agriculteurs.",besoinTxt:"Mieux faire connaître nos offres.",ville:"Pointe-Noire",tel:"06 000 00 07",email:"rodrigue.exemple@mail.cg",partage:{tel:false,email:true},visible:true},
+    {id:"p8",code:"REC-1008",nom:"Gloria Massamba",entreprise:"Gloria Events",secteur:"Événementiel",offres:["Événementiel & location","Restauration & traiteur"],besoins:["Imprimerie & supports","Transport & livraison"],offreTxt:"Chapiteaux, chaises, décoration de salles.",besoinTxt:"Un transporteur pour le matériel le samedi.",ville:"Brazzaville",tel:"06 000 00 08",email:"gloria.exemple@mail.cg",partage:{tel:true,email:true},visible:true},
+    {id:"p9",code:"REC-1009",nom:"Fabrice Moukoko",entreprise:"Soleil Congo Énergie",secteur:"Énergie",offres:["Énergie solaire","Fournitures & équipements"],besoins:["Agriculture & élevage","Juridique & création d'entreprise"],offreTxt:"Kits solaires pour fermes, pompes à eau solaires.",besoinTxt:"Des fermes partenaires pour tester nos pompes.",ville:"Brazzaville",tel:"06 000 00 09",email:"fabrice.exemple@mail.cg",partage:{tel:true,email:false},visible:true},
+    {id:"p10",code:"REC-1010",nom:"Nadège Itoua",entreprise:"Atelier Itoua Couture",secteur:"Mode & beauté",offres:["Mode & beauté"],besoins:["Marketing & réseaux sociaux","Financement & microfinance"],offreTxt:"Tenues en pagne, uniformes d'entreprise.",besoinTxt:"",ville:"Brazzaville",tel:"06 000 00 10",email:"nadege.exemple@mail.cg",partage:{tel:true,email:false},visible:false}
+  ].map(p=>Object.assign({exemple:true,suspendu:false,vus:[],charte:true,strikes:[]},p));
+  const now=Date.now();
+  P[6].strikes=[{d:now-30e6,types:["numéro écrit en lettres"],ctx:"message"}];
+  P[9].strikes=[{d:now-40e6,types:["numéro en chiffres"],ctx:"message"},{d:now-39e6,types:["numéro découpé en plusieurs messages"],ctx:"message"}];P[9].suspendu=true;
+  return {
+    profiles:P,
+    requests:[
+      {id:"r1",from:"p8",to:"p2",msg:"Bonjour Marie, j'ai du matériel à livrer chaque samedi. On en parle ?",status:"pending",date:now-3600e3},
+      {id:"r2",from:"p6",to:"p1",msg:"Je cherche du piment en gros pour mes sauces.",status:"pending",date:now-1800e3},
+      {id:"r3",from:"p3",to:"p4",msg:"",status:"autorisee",date:now-90e6,acceptedAt:now-88e6,authAt:now-80e6,resultats:{p3:"Rendez-vous pris",p4:"Premier échange"},msgs:[{by:"p3",t:"Bonjour Madame, il me faut un suivi comptable mensuel.",d:now-87e6},{by:"p4",t:"Avec plaisir. Je vous propose un rendez-vous après validation de REC 242.",d:now-86e6}]},
+      {id:"r4",from:"p9",to:"p1",msg:"Nos pompes solaires pourraient vous intéresser pour l'irrigation.",status:"autorisee",date:now-95e6,acceptedAt:now-94e6,authAt:now-82e6,resultats:{p9:"Devis ou proposition envoyé"},msgs:[{by:"p1",t:"Oui, j'ai 2 hectares à Odziba. Quel débit pour vos pompes ?",d:now-93e6},{by:"p9",t:"Entre 2 et 5 m³/h selon le modèle. Je vous envoie un devis.",d:now-92e6}]},
+      {id:"r5",from:"p5",to:"p4",msg:"Je fais des sites web pour les cabinets. Je peux vous montrer des exemples.",status:"attente",date:now-20e6,acceptedAt:now-18e6,msgs:[{by:"p4",t:"Oui, quel serait le délai pour un site simple ?",d:now-17e6},{by:"p5",t:"Deux semaines environ. On échange les numéros dès que REC 242 valide.",d:now-16e6}]},
+      {id:"r6",from:"p1",to:"p2",msg:"Bonjour Marie, je cherche un transport régulier Odziba–Brazzaville.",status:"attente",date:now-25e6,acceptedAt:now-24e6,msgs:[{by:"p2",t:"Bonjour Paul, nous passons par Odziba le mardi et le vendredi.",d:now-23e6}]}
+    ],
+    phase:"apres",
+    blocks:[],
+    reports:[{id:"s1",by:"p4",who:"p10",motif:"Profil incomplet ou faux",date:now-5000e3,traite:false}],
+    codes:["REC-2001","REC-2002","REC-2003","REC-2004","REC-2005"],
+    me:"p1",
+    admin:false
+  };
+}
+
+let S;
+try{const raw=localStorage.getItem(KEY);S=raw?JSON.parse(raw):seed();}catch(e){S=seed();}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+let view="pour-toi", reqTab="recues", sheet=null, toastT=null, loginErr="";
+let draft=null, delConfirm=false;
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const P=id=>S.profiles.find(p=>p.id===id);
+const me=()=>P(S.me);
+const initials=n=>(n||"?").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");
+const ago=t=>{const m=Math.round((Date.now()-t)/60000);if(m<1)return"à l'instant";if(m<60)return"il y a "+m+" min";const h=Math.round(m/60);if(h<24)return"il y a "+h+" h";return"il y a "+Math.round(h/24)+" j";};
+
+function blocked(a,b){return S.blocks.some(x=>(x.by===a&&x.who===b)||(x.by===b&&x.who===a));}
+function others(){const u=me();return S.profiles.filter(p=>p.id!==u.id&&p.visible&&!p.suspendu&&!blocked(u.id,p.id));}
+function match(u,v){
+  const donne=v.offres.filter(c=>u.besoins.includes(c));
+  const cherche=v.besoins.filter(c=>u.offres.includes(c));
+  return {donne,cherche,ville:!!(u.ville&&v.ville===u.ville),score:donne.length*2+cherche.length*2+(donne.length&&cherche.length?3:0)+(u.ville&&v.ville===u.ville?1:0)};
+}
+function activeReq(a,b){return S.requests.find(r=>((r.from===a&&r.to===b)||(r.from===b&&r.to===a))&&["pending","attente","autorisee"].includes(r.status));}
+function pendingIn(){return S.requests.filter(r=>r.to===S.me&&r.status==="pending"&&P(r.from)&&!P(r.from).suspendu);}
+function newOpps(){const u=me();return others().filter(v=>match(u,v).cherche.length&&!(u.vus||[]).includes(v.id));}
+
+function toast(t){clearTimeout(toastT);let el=$(".toast");if(!el){el=document.createElement("div");el.className="toast";el.setAttribute("role","status");document.body.appendChild(el);}el.textContent=t;el.hidden=false;toastT=setTimeout(()=>{el.hidden=true;},2600);}
+
+/* ---------- pieces ---------- */
+function reasons(m){
+  let h="";
+  m.donne.forEach(c=>h+=`<div class="reason">Propose un service que tu recherches : ${esc(c)}</div>`);
+  m.cherche.forEach(c=>h+=`<div class="reason">Recherche un service que tu proposes : ${esc(c)}</div>`);
+  return h?`<div class="why">${h}</div>`:"";
+}
+function connectBtn(v){
+  const r=activeReq(S.me,v.id);
+  if(!r)return `<button class="btn primary" data-act="ask" data-id="${v.id}">Demander une connexion</button>`;
+  if(r.status==="autorisee")return `<span class="status st-autorisee">Autorisée par REC 242</span><button class="btn ghost" data-act="go" data-v="demandes" data-t="echanges">Voir ses coordonnées</button>`;
+  if(r.status==="attente")return `<span class="status st-attente">Attente REC 242</span><button class="btn ghost" data-act="go" data-v="demandes" data-t="echanges">Écrire</button>`;
+  if(r.from===S.me)return `<span class="status st-pending">Demande envoyée</span>`;
+  return `<button class="btn gold" data-act="go" data-v="demandes" data-t="recues">Il/elle t'a écrit : répondre</button>`;
+}
+function personCard(v,showWhy){
+  const u=me(),m=match(u,v);
+  return `<div class="card">
+    <div class="person"><div class="av">${esc(initials(v.nom))}</div>
+      <div class="info"><div class="name">${esc(v.nom)}${v.exemple?'<span class="tag-ex">exemple</span>':""}</div>
+      <div class="co">${esc(v.entreprise)} · ${esc(v.secteur)}${v.ville?" · "+esc(v.ville):""}</div></div></div>
+    ${showWhy?reasons(m):""}
+    ${activeReq(S.me,v.id)&&activeReq(S.me,v.id).status==="autorisee"?"":`<p class="lock">Coordonnées masquées jusqu'à l'autorisation de REC 242</p>`}
+    <div class="row">${connectBtn(v)}<button class="btn ghost" data-act="profile" data-id="${v.id}">Voir le profil</button></div>
+  </div>`;
+}
+const ICON={
+  "pour-toi":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="3"/><circle cx="17" cy="16" r="3"/><path d="M9.5 10l5 4"/></svg>',
+  annuaire:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>',
+  demandes:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v10H8l-4 4z"/></svg>',
+  moi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+  admin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>'
+};
+
+/* ---------- views ---------- */
+function vPourToi(){
+  const u=me(),list=others().map(v=>({v,m:match(u,v)}));
+  const donne=list.filter(x=>x.m.donne.length).sort((a,b)=>b.m.score-a.m.score);
+  const cherche=list.filter(x=>x.m.cherche.length&&!x.m.donne.length).sort((a,b)=>b.m.score-a.m.score);
+  const pin=pendingIn().length,opp=newOpps().length;
+  let h=`<div class="section-head"><span class="eyebrow">Rencontre du 21 novembre</span><h1>Bonjour ${esc(u.nom.split(" ")[0])}</h1></div>`;
+  h+=`<div class="rules"><b>Tes suggestions personnalisées.</b> Tu vois seulement les entrepreneurs dont l'offre ou le besoin correspond au tien. Tu peux leur écrire dans l'appli. Les numéros restent masqués : ils sont transmis quand vous êtes d'accord tous les deux <b>et</b> que REC 242 a autorisé la mise en relation.</div>`;
+  if(pin)h+=`<div class="alert"><div class="num">${pin}</div><p>${pin>1?"demandes de connexion t'attendent":"demande de connexion t'attend"}</p><button class="btn gold" data-act="go" data-v="demandes" data-t="recues">Répondre</button></div>`;
+  if(!u.offres.length&&!u.besoins.length)h+=`<div class="empty">Complète ton profil (ce que tu proposes, ce que tu cherches) pour recevoir des suggestions.<br><br><button class="btn primary" data-act="go" data-v="moi">Compléter mon profil</button></div>`;
+  h+=`<div class="section"><div class="section-head"><h2>Ils cherchent ce que tu proposes</h2><p class="small muted">Des clients potentiels. ${opp?`<b style="color:var(--gold-ink)">${opp} nouveau${opp>1?"x":""}</b>`:""}</p></div>`;
+  const ch=list.filter(x=>x.m.cherche.length).sort((a,b)=>b.m.score-a.m.score);
+  h+=ch.length?ch.map(x=>personCard(x.v,true)).join(""):`<div class="empty">Personne pour l'instant. Dès qu'un participant cherche ce que tu proposes, il apparaît ici.</div>`;
+  h+=`</div><div class="section"><div class="section-head"><h2>Ils proposent ce que tu cherches</h2><p class="small muted">Des prestataires pour tes besoins.</p></div>`;
+  const dn=donne.filter(x=>!x.m.cherche.length);
+  h+=dn.length?dn.map(x=>personCard(x.v,true)).join(""):(donne.length?`<div class="empty">Ils sont déjà dans la liste au-dessus : vous pouvez travailler dans les deux sens.</div>`:`<div class="empty">Aucun prestataire ne correspond pour l'instant. De nouveaux participants s'inscrivent jusqu'au jour J : reviens plus tard, ou ajoute des besoins dans ton profil.</div>`);
+  h+=`</div>`;
+  // mark opportunities as seen
+  const ids=ch.map(x=>x.v.id);u.vus=Array.from(new Set([...(u.vus||[]),...ids]));save();
+  return h;
+}
+function reqCard(r,side){
+  const o=P(side==="in"?r.from:r.to);if(!o)return"";
+  const stL=STL[r.status];
+  let actions="";
+  if(r.status==="pending"&&side==="in")actions=`<div class="row"><button class="btn primary" data-act="accept" data-id="${r.id}">Accepter</button><button class="btn" data-act="refuse" data-id="${r.id}">Refuser</button><button class="btn ghost" data-act="profile" data-id="${o.id}">Voir le profil</button></div>`;
+  if(r.status==="pending"&&side==="out")actions=`<div class="row"><button class="btn" data-act="cancel" data-id="${r.id}">Annuler la demande</button></div>`;
+  return `<div class="card"><div class="person"><div class="av">${esc(initials(o.nom))}</div><div class="info"><div class="name">${esc(o.nom)}</div><div class="co">${esc(o.entreprise)} · ${ago(r.date)}</div></div><span class="status st-${r.status}">${stL}</span></div>
+  ${r.msg?`<p style="font-size:14px">« ${esc(r.msg)} »</p>`:""}
+  ${side==="in"&&r.status==="pending"?reasons(match(me(),o)):""}${actions}</div>`;
+}
+function contactsOf(o){
+  let h="";
+  if(o.partage.tel&&o.tel)h+=`<div class="contact"><span>Téléphone / WhatsApp</span><b>${esc(o.tel)}</b></div>`;
+  if(o.partage.email&&o.email)h+=`<div class="contact"><span>E-mail</span><b>${esc(o.email)}</b></div>`;
+  return h||`<p class="small muted">Cette personne n'a choisi aucun moyen de contact. Retrouve-la sur place.</p>`;
+}
+function thread(r){
+  const ms=r.msgs||[];
+  return `<div class="thread">${ms.length?ms.map(m=>`<div class="msg ${m.by===S.me?"mine":""}"><p>${esc(m.t).replace(/\[coordonnée masquée\]/g,'<span class="masked">coordonnée masquée</span>')}</p><span>${m.by===S.me?"Toi":esc(P(m.by)?P(m.by).nom.split(" ")[0]:"")} · ${ago(m.d)}</span></div>`).join(""):`<p class="small muted">Pas encore de message. Présente-toi et explique ce que tu cherches.</p>`}</div>
+  <form class="chat" data-chat="${r.id}"><input type="text" id="chat-${r.id}" maxlength="500" placeholder="Écrire un message…" aria-label="Message"><button class="btn primary" type="submit">Envoyer</button></form>
+  <div class="warnbox"><b>Règle d'or :</b> ${RULE_TXT} REC 242 ne lit pas vos messages : la vérification est automatique.</div>`;
+}
+function vDemandes(){
+  const inn=S.requests.filter(r=>r.to===S.me&&r.status==="pending"||r.to===S.me&&["refused","cancelled"].includes(r.status)).sort((a,b)=>(a.status==="pending"?0:1)-(b.status==="pending"?0:1)||b.date-a.date);
+  const out=S.requests.filter(r=>r.from===S.me&&!["attente","autorisee"].includes(r.status)).sort((a,b)=>b.date-a.date);
+  const ech=S.requests.filter(r=>(r.from===S.me||r.to===S.me)&&["attente","autorisee","rejetee"].includes(r.status)).sort((a,b)=>({attente:0,autorisee:1,rejetee:2}[a.status]-{attente:0,autorisee:1,rejetee:2}[b.status])||b.date-a.date);
+  const pin=inn.filter(r=>r.status==="pending").length;
+  let body="";
+  if(reqTab==="recues")body=inn.length?inn.map(r=>reqCard(r,"in")).join(""):`<div class="empty">Aucune demande reçue pour l'instant.</div>`;
+  if(reqTab==="envoyees")body=out.length?out.map(r=>reqCard(r,"out")).join(""):`<div class="empty">Aucune demande en attente de réponse. Va voir tes suggestions.</div>`;
+  if(reqTab==="echanges")body=ech.length?ech.map(r=>{const o=P(r.from===S.me?r.to:r.from);if(!o)return"";const res=(r.resultats||{})[S.me]||"";
+    let bottom="";
+    if(r.status==="attente")bottom=`<div class="steps"><span class="done">Demande</span><span class="done">Accord des deux</span><span class="now">Autorisation REC 242</span><span>Coordonnées</span></div>
+      <p class="lock">${S.phase==="evenement"?"Vous pouvez continuer à échanger. REC 242 examinera chaque mise en relation "+DELAI+".":"REC 242 examine cette mise en relation "+DELAI+". Les coordonnées apparaîtront ici après autorisation."}</p>`;
+    if(r.status==="autorisee")bottom=`<div class="authbox"><p class="small"><b>Mise en relation autorisée par REC 242</b> ${r.authAt?ago(r.authAt):""}. Seules les coordonnées que ${esc(o.nom.split(" ")[0])} a choisi de partager apparaissent.</p>${contactsOf(o)}</div>
+      <label class="f">Où en est cette mise en relation ? <span class="hint">Facultatif. Seul le résultat est transmis à REC 242, jamais vos échanges.</span><select data-res="${r.id}"><option value="">Choisir…</option>${RESULTATS.map(x=>`<option ${res===x?"selected":""}>${esc(x)}</option>`).join("")}</select></label>`;
+    if(r.status==="rejetee")bottom=`<p class="small muted">REC 242 n'a pas autorisé cette mise en relation. Les coordonnées ne seront pas transmises.</p>`;
+    return `<div class="card"><div class="person"><div class="av">${esc(initials(o.nom))}</div><div class="info"><div class="name">${esc(o.nom)}</div><div class="co">${esc(o.entreprise)}</div></div><span class="status st-${r.status}">${STL[r.status]}</span></div>
+    ${r.msg?`<p class="small muted">Premier message : « ${esc(r.msg)} »</p>`:""}
+    ${r.status!=="rejetee"?thread(r):""}${bottom}</div>`;}).join(""):`<div class="empty">Quand vous acceptez tous les deux une demande, vous pouvez échanger ici. Les coordonnées arrivent après l'autorisation de REC 242.</div>`;
+  const ne=ech.filter(r=>r.status!=="rejetee").length;
+  return `<div class="section-head"><span class="eyebrow">Mes demandes</span><h1>Mises en relation</h1></div>
+  <div class="seg" role="group" aria-label="Type de demandes">
+    <button data-act="rtab" data-t="recues" aria-pressed="${reqTab==="recues"}">Reçues${pin?` (${pin})`:""}</button>
+    <button data-act="rtab" data-t="envoyees" aria-pressed="${reqTab==="envoyees"}">Envoyées</button>
+    <button data-act="rtab" data-t="echanges" aria-pressed="${reqTab==="echanges"}">Échanges (${ne})</button>
+  </div><div class="section">${body}</div>`;
+}
+function picker(name,sel){return `<div class="picker" data-pick="${name}">${CATS.map(c=>`<button type="button" data-cat="${esc(c)}" aria-pressed="${sel.includes(c)}">${esc(c)}</button>`).join("")}</div>`;}
+function vMoi(){
+  const u=me();
+  if(!draft||draft.id!==u.id)draft=JSON.parse(JSON.stringify(u));
+  const d=draft;
+  return `<div class="section-head"><span class="eyebrow">Mon profil</span><h1>${d.nom?esc(d.nom):"Crée ton profil"}</h1><p class="small muted">Code d'accès : <b>${esc(d.code)}</b></p></div>
+  <form id="pf" class="card" novalidate>
+    <label class="f">Nom et prénom<input type="text" id="p-nom" value="${esc(d.nom)}" required></label>
+    <label class="f">Entreprise ou projet<input type="text" id="p-ent" value="${esc(d.entreprise)}" required></label>
+    <label class="f">Secteur d'activité<select id="p-sect">${SECTEURS.map(s=>`<option ${d.secteur===s?"selected":""}>${esc(s)}</option>`).join("")}</select></label>
+    <label class="f">Ville <span class="hint">facultatif</span><select id="p-ville"><option value="">Non précisé</option>${VILLES.map(s=>`<option ${d.ville===s?"selected":""}>${esc(s)}</option>`).join("")}</select></label>
+    <div class="divider"></div>
+    <div class="f" style="display:flex;flex-direction:column;gap:6px"><b>Ce que je propose</b><span class="small muted">Choisis dans la liste : c'est ce qui permet à l'appli de te rapprocher des bonnes personnes.</span>${picker("offres",d.offres)}</div>
+    <label class="f">Précise ton offre <span class="hint">une phrase</span><textarea id="p-otxt" maxlength="200">${esc(d.offreTxt)}</textarea></label>
+    <div class="f" style="display:flex;flex-direction:column;gap:6px"><b>Ce que je recherche</b>${picker("besoins",d.besoins)}</div>
+    <label class="f">Précise ton besoin <span class="hint">une phrase</span><textarea id="p-btxt" maxlength="200">${esc(d.besoinTxt)}</textarea></label>
+    <div class="divider"></div>
+    <div class="section-head"><b>Mes coordonnées</b><span class="small muted">Toujours masquées. Elles sont transmises seulement quand la mise en relation est acceptée par vous deux et autorisée par REC 242, et seulement celles que tu coches.</span></div>
+    <label class="f">Téléphone / WhatsApp<input type="tel" id="p-tel" value="${esc(d.tel)}"></label>
+    <label class="f">E-mail<input type="email" id="p-mail" value="${esc(d.email)}"></label>
+    <label class="check"><input type="checkbox" id="p-stel" ${d.partage.tel?"checked":""}> Transmettre mon téléphone après autorisation REC 242</label>
+    <label class="check"><input type="checkbox" id="p-smail" ${d.partage.email?"checked":""}> Transmettre mon e-mail après autorisation REC 242</label>
+    <div class="divider"></div>
+    <label class="check"><input type="checkbox" id="p-charte" ${d.charte?"checked":""}> <span><b>Je m'engage à ne pas partager mes coordonnées</b> (téléphone, e-mail, WhatsApp, réseaux sociaux) avant l'autorisation de REC 242, sous aucune forme. J'ai compris que toute tentative peut entraîner la suspension puis le bannissement de mon compte.</span></label>
+    <label class="check"><input type="checkbox" id="p-vis" ${d.visible?"checked":""}> <span><b>J'accepte que mon profil soit suggéré</b> aux participants de REC 242 dont l'offre ou le besoin correspond au mien (nom, entreprise, offre, besoin, sans mes coordonnées). Je peux arrêter à tout moment.</span></label>
+    <p class="err" id="p-err" hidden></p>
+    <button class="btn primary full" type="submit">Enregistrer mon profil</button>
+  </form>
+  <div class="card"><h3>Mes données</h3><p class="small muted">Tu peux masquer ton profil (case ci-dessus) ou le supprimer définitivement.</p>
+  <div class="row">${delConfirm?`<button class="btn danger" data-act="del-yes">Oui, supprimer définitivement</button><button class="btn" data-act="del-no">Annuler</button>`:`<button class="btn danger" data-act="del">Supprimer mon profil</button>`}</div></div>`;
+}
+function vAdmin(){
+  const prof=S.profiles,req=S.requests;
+  const complete=prof.filter(p=>p.nom&&p.entreprise&&p.offres.length&&p.besoins.length).length;
+  const n=s=>req.filter(r=>r.status===s).length;
+  const open=S.reports.filter(r=>!r.traite);
+  const acc=req.filter(r=>r.status==="autorisee");
+  const queue=req.filter(r=>r.status==="attente").sort((a,b)=>a.acceptedAt-b.acceptedAt);
+  const reported=id=>S.reports.some(s=>!s.traite&&s.who===id);
+  const full=p=>p&&p.nom&&p.entreprise&&p.offres.length&&p.besoins.length;
+  const qCard=r=>{const a=P(r.from),c=P(r.to);if(!a||!c)return"";const m=match(c,a);
+    const checks=[["Profils complets",full(a)&&full(c)],["Inscrits confirmés (code valide)",true],["Aucun signalement en cours",!reported(a.id)&&!reported(c.id)],["Comptes actifs",!a.suspendu&&!c.suspendu]];
+    const lock=S.phase==="evenement"?"disabled":"";
+    return `<div class="card"><div class="pair"><div><b>${esc(a.nom)}</b><span>${esc(a.entreprise)}</span></div><span class="arrow">↔</span><div><b>${esc(c.nom)}</b><span>${esc(c.entreprise)}</span></div></div>
+    <div class="why">${m.donne.map(x=>`<div class="reason">${esc(a.nom.split(" ")[0])} propose ${esc(x)}, recherché par ${esc(c.nom.split(" ")[0])}</div>`).join("")}${m.cherche.map(x=>`<div class="reason">${esc(c.nom.split(" ")[0])} propose ${esc(x)}, recherché par ${esc(a.nom.split(" ")[0])}</div>`).join("")}</div>
+    <ul class="checks">${checks.map(([l,ok])=>`<li class="${ok?"ok":"ko"}">${ok?"Oui":"Non"} · ${l}</li>`).join("")}</ul>
+    <p class="small muted">Accord des deux ${ago(r.acceptedAt)} · ${(r.msgs||[]).length} message${(r.msgs||[]).length>1?"s":""} échangé${(r.msgs||[]).length>1?"s":""} (contenu non visible)</p>
+    <div class="row"><button class="btn primary" data-act="authorize" data-id="${r.id}" ${lock}>Autoriser</button><button class="btn" data-act="reject" data-id="${r.id}" ${lock}>Ne pas autoriser</button></div></div>`;};
+  const resCount={};RESULTATS.forEach(x=>resCount[x]=0);let declared=0;
+  acc.forEach(r=>{const vals=Object.values(r.resultats||{});if(!vals.length)return;declared++;const best=RESULTATS.slice().reverse().find(x=>x!=="Pas de suite"&&vals.includes(x))||vals[0];resCount[best]++;});
+  const maxR=Math.max(1,...Object.values(resCount));
+  const cnt=id=>({env:req.filter(r=>r.from===id).length,rec:req.filter(r=>r.to===id).length,con:acc.filter(r=>r.from===id||r.to===id).length});
+  return `<div class="section-head"><span class="eyebrow">Tableau de bord REC 242</span><h1>Suivi des connexions</h1></div>
+  <div class="rules"><b>Supervision sans surveillance.</b> L'équipe autorise les mises en relation et voit les chiffres, les statuts et les résultats déclarés. Elle ne voit ni le contenu des messages, ni les coordonnées.</div>
+  <div class="card phase"><div><span class="eyebrow">Phase en cours</span><h3>${S.phase==="evenement"?"Jour de la rencontre : autorisations fermées":"Après la rencontre : autorisations ouvertes"}</h3><p class="small muted">${S.phase==="evenement"?"Le 21 novembre, les participants créent leur profil, envoient des demandes et échangent. Aucune coordonnée n'est transmise.":"Chaque mise en relation est validée à la main par l'équipe, "+DELAI+"."}</p></div><button class="btn" data-act="phase">${S.phase==="evenement"?"Ouvrir les autorisations":"Revenir au jour J"}</button></div>
+  <div class="section"><div class="section-head"><h2>Mises en relation à autoriser (${queue.length})</h2><p class="small muted">Les plus anciennes en premier. Délai visé : 5 jours.</p></div>
+  ${queue.length?queue.map(qCard).join(""):`<div class="empty">Aucune mise en relation en attente.</div>`}</div>
+  <div class="stats">
+    <div class="stat"><div class="v">${n("autorisee")}</div><div class="l">Mises en relation autorisées (indicateur principal)</div></div>
+    <div class="stat"><div class="v">${queue.length}</div><div class="l">En attente d'autorisation</div></div>
+    <div class="stat"><div class="v">${req.length}</div><div class="l">Demandes envoyées</div></div>
+    <div class="stat"><div class="v">${req.length?Math.round((n("attente")+n("autorisee")+n("rejetee"))/req.length*100):0} %</div><div class="l">Demandes acceptées par le destinataire</div></div>
+    <div class="stat"><div class="v">${complete}/${prof.length}</div><div class="l">Profils complets</div></div>
+    <div class="stat"><div class="v">${open.length}</div><div class="l">Signalements à traiter</div></div>
+  </div>
+  <div class="section"><div class="section-head"><h2>Résultats des connexions</h2><p class="small muted">${declared} connexion${declared>1?"s":""} sur ${acc.length} avec un résultat déclaré par les membres.</p></div>
+  <div class="card">${RESULTATS.map(x=>`<div class="bar"><span>${esc(x)}</span><div class="track"><div class="fill" style="width:${resCount[x]/maxR*100}%"></div></div><b>${resCount[x]}</b></div>`).join("")}</div></div>
+  <div class="section"><div class="section-head"><h2>Tentatives de contournement</h2><p class="small muted">Messages bloqués par le filtre. Seul le type de tentative est enregistré, jamais le message.</p></div>
+  ${(()=>{const L=prof.filter(p=>(p.strikes||[]).length);if(!L.length)return `<div class="empty">Aucune tentative détectée.</div>`;return L.map(p=>{const s=p.strikes,last=s[s.length-1];const st=p.banni?'<span class="status st-bad">Banni</span>':p.suspendu?'<span class="status st-bad">Suspendu</span>':'<span class="status st-pending">Averti</span>';
+    return `<div class="card"><div class="row" style="justify-content:space-between"><b>${esc(p.nom)}</b>${st}</div><p class="small muted">${s.length} tentative${s.length>1?"s":""} · dernière ${ago(last.d)} · ${esc([...new Set(s.flatMap(x=>x.types))].join(", "))}</p>
+    ${p.banni?`<p class="small muted">Compte fermé définitivement.</p>`:`<div class="row">${p.suspendu?`<button class="btn danger" data-act="ban" data-id="${p.id}">Bannir définitivement</button><button class="btn" data-act="unsusp" data-id="${p.id}">Lever la suspension</button>`:`<button class="btn danger" data-act="ban" data-id="${p.id}">Bannir</button>`}</div>`}</div>`;}).join("");})()}</div>
+  <div class="section"><h2>Signalements</h2>${open.length?open.map(s=>{const w=P(s.who),b=P(s.by);if(!w)return"";return `<div class="card"><div class="row" style="justify-content:space-between"><b>${esc(w.nom)}</b><span class="status st-bad">${esc(s.motif)}</span></div><p class="small muted">Signalé par ${esc(b?b.nom:"un participant")} · ${ago(s.date)}</p><div class="row"><button class="btn danger" data-act="suspend" data-id="${w.id}" data-s="${s.id}">${w.suspendu?"Déjà suspendu":"Suspendre le compte"}</button><button class="btn" data-act="close-rep" data-s="${s.id}">Classer sans suite</button></div></div>`;}).join(""):`<div class="empty">Aucun signalement en attente.</div>`}</div>
+  <div class="section"><h2>Participants</h2><p class="small muted">Activité de chaque compte, sans coordonnées ni contenu des messages.</p><div class="tbl"><table><thead><tr><th>Nom</th><th>Code</th><th>Suggéré</th><th>Envoyées</th><th>Reçues</th><th>Connexions</th><th>Statut</th><th></th></tr></thead><tbody>
+  ${prof.map(p=>{const c=cnt(p.id);return `<tr><td>${esc(p.nom||"(profil en cours)")}<br><span class="muted">${esc(p.entreprise)}</span></td><td>${esc(p.code)}</td><td>${p.visible?"Oui":"Non"}</td><td class="num">${c.env}</td><td class="num">${c.rec}</td><td class="num">${c.con}</td><td>${p.suspendu?'<span class="status st-bad">Suspendu</span>':'<span class="status st-accepted">Actif</span>'}</td><td><button class="btn" data-act="toggle-susp" data-id="${p.id}">${p.suspendu?"Réactiver":"Suspendre"}</button></td></tr>`;}).join("")}
+  </tbody></table></div></div>
+  <div class="section"><h2>Codes d'accès non utilisés</h2><p class="small muted">Un code par inscrit confirmé. Le QR code mène à l'appli, le code prouve l'inscription.</p>
+  <div class="chips">${S.codes.map(c=>`<span class="chip">${esc(c)}</span>`).join("")||'<span class="muted small">Aucun</span>'}</div>
+  <form id="addcode" class="row"><input type="text" id="newcode" placeholder="ex. REC-2010" style="flex:1;min-width:0" aria-label="Nouveau code"><button class="btn primary" type="submit">Ajouter</button></form></div>
+  <div class="card"><h3>Démo</h3><p class="small muted">Remet tous les profils et demandes d'exemple à zéro.</p><div class="row"><button class="btn" data-act="reset">Réinitialiser la démo</button></div></div>`;
+}
+function vLogin(){
+  const used=S.profiles.filter(p=>!p.suspendu).slice(0,6);
+  return `<div class="login">
+  <div class="hero"><span class="eyebrow">21 novembre · Culture Park · 11 h–14 h</span><h1>REC 242 <span class="gold">Connect</span></h1><p class="muted">Mise en relation professionnelle ciblée et supervisée. Dis ce que tu proposes et ce que tu cherches : on te présente les entrepreneurs avec qui faire affaire.</p>
+  <ul class="four"><li>Pas d'annuaire ouvert à tous</li><li>Suggestions selon ton offre et tes besoins</li><li>Échanges dans l'appli, numéros toujours masqués</li><li>Partager ses coordonnées avant l'autorisation = suspension puis bannissement</li><li>Coordonnées transmises après votre accord à tous les deux et l'autorisation de REC 242</li><li>Suivi des résultats par REC 242, sans lire vos échanges</li></ul></div>
+  <form id="login" class="card" novalidate><label class="f">Ton code d'invitation<span class="hint">Reçu après ton inscription à la rencontre</span><input type="text" id="code" placeholder="REC-0000" autocomplete="off" autocapitalize="characters"></label>
+  ${loginErr?`<p class="err">${esc(loginErr)}</p>`:""}<button class="btn primary full" type="submit">Entrer</button></form>
+  <div class="section"><div class="section-head"><span class="eyebrow">Démo : touche un code pour entrer</span></div>
+  <div class="codes">${used.map(p=>`<button data-act="code" data-c="${esc(p.code)}"><b>${esc(p.code)}</b><span>${esc(p.nom)}</span></button>`).join("")}
+  ${S.codes[0]?`<button data-act="code" data-c="${esc(S.codes[0])}"><b>${esc(S.codes[0])}</b><span>Nouveau participant</span></button>`:""}
+  <button data-act="code" data-c="ADMIN-242"><b>ADMIN-242</b><span>Équipe REC 242</span></button></div></div></div>`;
+}
+
+/* ---------- sheets ---------- */
+function sheetHTML(){
+  if(!sheet)return"";
+  let inner="";
+  if(sheet.type==="profile"){
+    const v=P(sheet.id),m=match(me(),v);
+    inner=`<div class="person"><div class="av lg">${esc(initials(v.nom))}</div><div class="info"><h2>${esc(v.nom)}</h2><div class="co">${esc(v.entreprise)} · ${esc(v.secteur)}${v.ville?" · "+esc(v.ville):""}</div></div></div>
+    ${reasons(m)}
+    <div class="section"><span class="eyebrow">Propose</span><div class="chips">${v.offres.map(c=>`<span class="chip ${me().besoins.includes(c)?"hit":""}">${esc(c)}</span>`).join("")}</div>${v.offreTxt?`<p>${esc(v.offreTxt)}</p>`:""}</div>
+    <div class="section"><span class="eyebrow">Recherche</span><div class="chips">${v.besoins.map(c=>`<span class="chip ${me().offres.includes(c)?"hit":""}">${esc(c)}</span>`).join("")}</div>${v.besoinTxt?`<p>${esc(v.besoinTxt)}</p>`:""}</div>
+    <div class="row">${connectBtn(v)}</div><div class="divider"></div>
+    <div class="row"><button class="btn ghost" data-act="report" data-id="${v.id}">Signaler ce profil</button><button class="btn ghost" data-act="block" data-id="${v.id}">Bloquer</button></div>`;
+  }
+  if(sheet.type==="warn"){
+    inner=`<div class="warnhead"><span class="big">!</span><div><h2>Message bloqué</h2><p class="small">Détecté : ${esc(sheet.types.join(", "))}</p></div></div>
+    <p>Les coordonnées sont transmises <b>uniquement</b> après l'accord des deux personnes et l'autorisation de REC 242.</p>
+    <div class="warnbox strong"><b>Premier et dernier avertissement.</b> À la prochaine tentative, ton compte sera suspendu automatiquement, et l'équipe REC 242 pourra te bannir définitivement de REC 242 Connect.</div>
+    <p class="small muted">Ton message n'a pas été envoyé. Aucun membre de l'équipe ne l'a lu : seule la tentative est enregistrée.</p>
+    <button class="btn primary full" data-act="close">J'ai compris</button>`;
+  }
+  if(sheet.type==="ask"){
+    const v=P(sheet.id);
+    inner=`<h2>Demande à ${esc(v.nom)}</h2><p class="small muted">${esc(v.entreprise)}. Tes coordonnées seront transmises seulement si vous êtes d'accord tous les deux et que REC 242 autorise la mise en relation.</p><div class="warnbox">${RULE_TXT}</div>
+    <form id="askf" class="section"><label class="f">Message <span class="hint">facultatif, 200 caractères</span><textarea id="ask-msg" maxlength="200" placeholder="Bonjour, je cherche… On peut se voir au stand ?"></textarea></label>
+    <button class="btn primary full" type="submit">Envoyer la demande</button></form>`;
+  }
+  if(sheet.type==="report"){
+    const v=P(sheet.id);
+    inner=`<h2>Signaler ${esc(v.nom)}</h2><p class="small muted">L'équipe REC 242 examinera le profil. La personne ne saura pas qui l'a signalée.</p>
+    <form id="repf" class="section"><label class="f">Motif<select id="rep-m"><option>Profil incomplet ou faux</option><option>Démarchage abusif / spam</option><option>Comportement inapproprié</option><option>Autre</option></select></label>
+    <button class="btn danger full" type="submit">Envoyer le signalement</button></form>`;
+  }
+  return `<div class="sheet-bg" data-act="close-bg"><div class="sheet" role="dialog" aria-modal="true"><button class="btn ghost x" data-act="close" aria-label="Fermer">Fermer</button>${inner}</div></div>`;
+}
+
+/* ---------- render ---------- */
+function render(){
+  const app=$("#app");
+  const logged=S.admin||(S.me&&me()&&!me().suspendu);
+  if(!logged){S.me=null;}
+  const u=S.me?me():null;
+  let tabs=S.admin?["admin"]:["pour-toi","demandes","moi"];
+  if(logged&&!tabs.includes(view))view=tabs[0];
+  const labels={"pour-toi":"Pour toi",annuaire:"Annuaire",demandes:"Demandes",moi:"Mon profil",admin:"Tableau de bord"};
+  const badges={"pour-toi":u?newOpps().length:0,demandes:u?pendingIn().length:0};
+  let body="";
+  if(!logged)body=vLogin();
+  else body={"pour-toi":vPourToi,demandes:vDemandes,moi:vMoi,admin:vAdmin}[view]();
+  app.innerHTML=`
+  <header class="top"><div class="wrap"><div><div class="logo">REC 242 <b>Connect</b></div><div class="event">Entreprendre, c'est se connecter</div></div>
+  ${logged?`<button class="me" data-act="logout" aria-label="Changer de participant"><span class="av">${esc(S.admin?"A":initials(u.nom))}</span><span>${esc(S.admin?"Admin":u.nom.split(" ")[0])} · changer</span></button>`:""}</div></header>
+  <div class="demo"><div class="wrap"><span><b>Prototype de démonstration.</b> Les profils sont des exemples fictifs. ${logged?"Change de participant pour voir l'autre côté.":""}</span></div></div>
+  <main><div class="wrap">${body}</div></main>
+  ${logged?`<nav class="tabs" aria-label="Navigation"><div class="wrap" style="grid-template-columns:repeat(${tabs.length},1fr)">${tabs.map(t=>`<button data-act="go" data-v="${t}" ${view===t?'aria-current="page"':""}>${ICON[t]}${labels[t]}${badges[t]?`<span class="badge">${badges[t]}</span>`:""}</button>`).join("")}</div></nav>`:""}
+  ${sheetHTML()}`;
+  bindForms();
+}
+
+function bindForms(){
+  const lg=$("#login");if(lg)lg.onsubmit=e=>{e.preventDefault();login($("#code").value);};
+  document.querySelectorAll("form[data-chat]").forEach(f=>f.onsubmit=e=>{e.preventDefault();const id=f.dataset.chat,inp=$("#chat-"+id),v=inp.value.trim();if(!v)return;const r=S.requests.find(x=>x.id===id);r.msgs=r.msgs||[];
+    const authorized=r.status==="autorisee";
+    if(!authorized){const prev=r.msgs.filter(m=>m.by===S.me&&Date.now()-m.d<15*60e3).slice(-3).map(m=>m.t);const dt=detect(v,prev);if(dt.length){strike(dt,"message");return;}}
+    r.msgs.push({by:S.me,t:v,d:Date.now()});save();render();});
+  document.querySelectorAll("select[data-res]").forEach(s=>s.onchange=()=>{const r=S.requests.find(x=>x.id===s.dataset.res);r.resultats=r.resultats||{};if(s.value)r.resultats[S.me]=s.value;else delete r.resultats[S.me];save();toast("Résultat enregistré. Merci !");});
+  const pf=$("#pf");if(pf){
+    const sync=()=>{draft.nom=$("#p-nom").value.trim();draft.entreprise=$("#p-ent").value.trim();draft.secteur=$("#p-sect").value;draft.ville=$("#p-ville").value;draft.offreTxt=$("#p-otxt").value.trim();draft.besoinTxt=$("#p-btxt").value.trim();draft.tel=$("#p-tel").value.trim();draft.email=$("#p-mail").value.trim();draft.partage={tel:$("#p-stel").checked,email:$("#p-smail").checked};draft.visible=$("#p-vis").checked;draft.charte=$("#p-charte").checked;};
+    pf.oninput=sync;pf.onchange=sync;
+    pf.querySelectorAll(".picker button").forEach(b=>b.onclick=()=>{const k=b.parentNode.dataset.pick,c=b.dataset.cat,arr=draft[k];const i=arr.indexOf(c);if(i>=0)arr.splice(i,1);else{if(arr.length>=4){toast("4 choix maximum");return;}arr.push(c);}b.setAttribute("aria-pressed",i<0);});
+    pf.onsubmit=e=>{e.preventDefault();sync();const er=$("#p-err");
+      const miss=[];if(!draft.nom)miss.push("nom");if(!draft.entreprise)miss.push("entreprise");if(!draft.offres.length)miss.push("ce que tu proposes");if(!draft.besoins.length)miss.push("ce que tu recherches");if(!draft.tel&&!draft.email)miss.push("un téléphone ou un e-mail");
+      if(!draft.charte)miss.push("l'engagement sur les coordonnées");
+      if(miss.length){er.textContent="À compléter : "+miss.join(", ")+".";er.hidden=false;return;}
+      const dt=detect(draft.offreTxt+" . "+draft.besoinTxt+" . "+draft.entreprise);
+      if(dt.length){er.textContent="Tes descriptions contiennent une coordonnée ("+dt.join(", ")+"). Retire-la : tes coordonnées vont uniquement dans les champs prévus, plus bas.";er.hidden=false;return;}
+      const i=S.profiles.findIndex(p=>p.id===draft.id);S.profiles[i]=JSON.parse(JSON.stringify(draft));save();toast("Profil enregistré");view="pour-toi";render();};
+  }
+  const af=$("#askf");if(af)af.onsubmit=e=>{e.preventDefault();sendReq(sheet.id,$("#ask-msg").value.trim());};
+  const rf=$("#repf");if(rf)rf.onsubmit=e=>{e.preventDefault();S.reports.push({id:"s"+Date.now(),by:S.me,who:sheet.id,motif:$("#rep-m").value,date:Date.now(),traite:false});save();sheet=null;render();toast("Signalement envoyé à l'équipe");};
+  const ac=$("#addcode");if(ac)ac.onsubmit=e=>{e.preventDefault();const c=$("#newcode").value.trim().toUpperCase();if(!c)return;if(S.codes.includes(c)||S.profiles.some(p=>p.code===c)){toast("Ce code existe déjà");return;}S.codes.push(c);save();render();toast("Code ajouté");};
+}
+
+function login(raw){
+  const c=String(raw||"").trim().toUpperCase();loginErr="";
+  if(c==="ADMIN-242"){S.admin=true;S.me=null;view="admin";save();render();return;}
+  const p=S.profiles.find(x=>x.code===c);
+  if(p){if(p.banni){loginErr="Ce compte a été banni définitivement de REC 242 Connect pour tentative de partage de coordonnées.";render();return;}if(p.suspendu){loginErr="Ce compte est suspendu. L'équipe REC 242 examine ton dossier.";render();return;}S.admin=false;S.me=p.id;view="pour-toi";save();render();return;}
+  const k=S.codes.indexOf(c);
+  if(k>=0){S.codes.splice(k,1);const id="u"+Date.now();S.profiles.push({id,code:c,nom:"",entreprise:"",secteur:"Autre",offres:[],besoins:[],offreTxt:"",besoinTxt:"",ville:"",tel:"",email:"",partage:{tel:true,email:false},visible:false,exemple:false,suspendu:false,vus:[]});S.admin=false;S.me=id;view="moi";draft=null;save();render();toast("Bienvenue ! Crée ton profil");return;}
+  loginErr=c?"Code inconnu. Vérifie le code reçu après ton inscription.":"Entre ton code d'invitation.";render();
+}
+function sendReq(to,msg){
+  if(activeReq(S.me,to)){toast("Une demande existe déjà avec cette personne");sheet=null;render();return;}
+  const pend=S.requests.filter(r=>r.from===S.me&&r.status==="pending").length;
+  if(pend>=15){toast("15 demandes en attente maximum. Attends des réponses.");return;}
+  // reopen old refused/cancelled pair: allowed once more
+  const dt=detect(msg);if(dt.length){strike(dt,"demande");return;}
+  S.requests.push({id:"r"+Date.now(),from:S.me,to,msg,status:"pending",date:Date.now(),msgs:[]});save();sheet=null;render();toast("Demande envoyée à "+P(to).nom.split(" ")[0]);
+}
+function strike(types,ctx){
+  const u=me();u.strikes=u.strikes||[];u.strikes.push({d:Date.now(),types,ctx});
+  if(u.strikes.length>=2){u.suspendu=true;save();sheet=null;S.me=null;draft=null;loginErr="Ton compte est suspendu : tentative répétée de partager des coordonnées avant l'autorisation de REC 242. L'équipe va examiner ton dossier et peut te bannir définitivement.";render();window.scrollTo(0,0);return;}
+  save();sheet={type:"warn",types};render();
+}
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-act]");if(!t)return;
+  const a=t.dataset.act;
+  if(a==="close-bg"&&e.target!==t)return;
+  switch(a){
+    case"go":view=t.dataset.v;if(t.dataset.t)reqTab=t.dataset.t;sheet=null;delConfirm=false;render();window.scrollTo(0,0);break;
+    case"rtab":reqTab=t.dataset.t;render();break;
+    case"profile":sheet={type:"profile",id:t.dataset.id};render();break;
+    case"ask":sheet={type:"ask",id:t.dataset.id};render();setTimeout(()=>{const m=$("#ask-msg");if(m)m.focus();},50);break;
+    case"report":sheet={type:"report",id:t.dataset.id};render();break;
+    case"block":S.blocks.push({by:S.me,who:t.dataset.id});S.requests.forEach(r=>{if(((r.from===S.me&&r.to===t.dataset.id)||(r.to===S.me&&r.from===t.dataset.id))&&r.status==="pending")r.status="cancelled";});save();sheet=null;render();toast("Profil bloqué. Vous ne vous verrez plus.");break;
+    case"close":case"close-bg":sheet=null;render();break;
+    case"accept":case"refuse":case"cancel":{const r=S.requests.find(x=>x.id===t.dataset.id);r.status={accept:"attente",refuse:"refused",cancel:"cancelled"}[a];if(a==="accept")r.acceptedAt=Date.now();save();if(a==="accept"){reqTab="echanges";}render();toast({accept:"Accord enregistré. Vous pouvez échanger ; REC 242 autorisera la mise en relation.",refuse:"Demande refusée",cancel:"Demande annulée"}[a]);break;}
+    case"authorize":case"reject":{const r=S.requests.find(x=>x.id===t.dataset.id);r.status=a==="authorize"?"autorisee":"rejetee";r.authAt=Date.now();save();render();toast(a==="authorize"?"Mise en relation autorisée : coordonnées transmises":"Mise en relation non autorisée");break;}
+    case"ban":{const p=P(t.dataset.id);p.banni=true;p.suspendu=true;p.visible=false;S.requests.forEach(r=>{if((r.from===p.id||r.to===p.id)&&["pending","attente"].includes(r.status))r.status="rejetee";});save();render();toast(p.nom.split(" ")[0]+" est banni de REC 242 Connect");break;}
+    case"unsusp":{const p=P(t.dataset.id);p.suspendu=false;p.strikes=[];save();render();toast("Suspension levée");break;}
+    case"phase":S.phase=S.phase==="evenement"?"apres":"evenement";save();render();break;
+    case"logout":S.me=null;S.admin=false;loginErr="";sheet=null;draft=null;save();render();window.scrollTo(0,0);break;
+    case"code":login(t.dataset.c);window.scrollTo(0,0);break;
+    case"del":delConfirm=true;render();break;
+    case"del-no":delConfirm=false;render();break;
+    case"del-yes":{const id=S.me;S.profiles=S.profiles.filter(p=>p.id!==id);S.requests=S.requests.filter(r=>r.from!==id&&r.to!==id);S.me=null;delConfirm=false;draft=null;save();render();toast("Profil supprimé");break;}
+    case"suspend":{const p=P(t.dataset.id);p.suspendu=true;const s=S.reports.find(x=>x.id===t.dataset.s);if(s)s.traite=true;save();render();toast("Compte suspendu");break;}
+    case"close-rep":{const s=S.reports.find(x=>x.id===t.dataset.s);s.traite=true;save();render();toast("Signalement classé");break;}
+    case"toggle-susp":{const p=P(t.dataset.id);p.suspendu=!p.suspendu;save();render();break;}
+    case"reset":S=seed();S.admin=true;S.me=null;save();render();toast("Démo réinitialisée");break;
+  }
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sheet){sheet=null;render();}});
+render();
+})();
+</script>
+</body></html>
