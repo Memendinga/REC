@@ -567,3 +567,7 @@ img { max-width: 100%; display: block; }
 }
 .nav a.agenda-link:not(.btn) { color: var(--gold-soft); padding: 0; width: auto; font-weight: 700; }
 .nav a.agenda-link:not(.btn)::after { display: none; }
+
+/* Lien « Devenir exposant » avec sous-titre */
+.nav a.nav-exposant:not(.btn) { display: inline-flex; flex-direction: column; line-height: 1.2; }
+.nav a.nav-exposant small { font-size: .68rem; font-weight: 400; color: var(--ink-soft); margin-top: 2px; }

@@ -24,7 +24,7 @@
         <a href="#avantages">Pourquoi adhérer ?</a>
         <a href="#actions">Nos actions</a>
         <a href="#organisation">Organisation</a>
-        <a href="#partenaires">Devenir partenaire</a>
+        <a class="nav-exposant" href="#partenaires">Devenir exposant<small>Stand, prise de parole ou visibilité</small></a>
         <a class="btn btn-sm" href="#adhesion">Rejoindre le REC</a>
         <div class="agenda">
         <button class="agenda-toggle" aria-expanded="false" aria-controls="agendaPanel">
@@ -149,8 +149,9 @@
     <section class="rec-partners" id="partenaires">
       <div class="container">
         <div class="rec-partners__head" data-reveal>
-          <span class="eyebrow">Devenir partenaire</span>
+          <span class="eyebrow">Devenir exposant</span>
           <h2>Faites connaître votre entreprise aux entrepreneurs du Congo</h2>
+          <p class="rec-partners__sub">Stand, prise de parole ou visibilité : choisissez la formule adaptée à votre entreprise.</p>
           <p>Le 21 novembre 2026, à Culture Park, 300 entrepreneurs sont réunis pour le lancement officiel du REC, diffusé en direct sur nos réseaux. Associez votre entreprise à l'événement.</p>
         </div>
 
@@ -214,6 +215,7 @@
       .rec-partners__head { max-width: 680px; margin: 0 auto 36px; text-align: center; }
       .rec-partners__head h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin: 0 0 14px; }
       .rec-partners__head p { color: var(--ink-soft, #3d4d60); margin: 0; }
+      .rec-partners__head p.rec-partners__sub { font-weight: 700; color: var(--forest, #163450); margin: 0 0 12px; }
       .rec-partners__stats { list-style: none; padding: 0; margin: 0 auto 36px; max-width: 760px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
       .rec-partners__stats li { background: #fff; border: 1px solid var(--line, rgba(15,36,56,.12)); border-radius: 14px; padding: 16px; text-align: center; }
       .rec-partners__stats strong { display: block; font-family: var(--font-display); font-size: 1.6rem; color: var(--forest, #163450); }
