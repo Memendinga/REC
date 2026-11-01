@@ -23,7 +23,7 @@
         <a href="#mission">Mission</a>
         <a href="#avantages">Pourquoi adhérer ?</a>
         <a href="#actions">Nos actions</a>
-        <a href="#organisation">Organisation</a>
+        <a href="#accompagnement">Accompagnement</a>
         <a class="nav-exposant" href="#partenaires">Exposant<small>Stand, prise de parole ou visibilité</small></a>
         <a href="#partenaire-officiel">Partenaire officiel</a>
         <a class="btn btn-sm" href="#adhesion">Rejoindre le REC</a>
@@ -308,6 +308,184 @@
         </div>
       </div>
     </section>
+
+    <!-- ===== SECTION ACCOMPAGNEMENT & DIAGNOSTIC ===== -->
+    <section class="rec-acc" id="accompagnement">
+      <div class="container">
+        <div class="rec-acc__head" data-reveal>
+          <span class="eyebrow">Accompagnement</span>
+          <h2>Développez votre activité avec REC 242</h2>
+          <p>Que vous lanciez un projet, que vous souhaitiez structurer votre entreprise ou investir au Congo, choisissez le parcours qui vous correspond.</p>
+        </div>
+
+        <div class="rec-acc__grid" data-reveal>
+          <article class="rec-acc__card">
+            <div class="rec-acc__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M16.5 14.6c2.6.2 4.5 2.2 4.5 4.9"/></svg>
+            </div>
+            <h3>Je suis entrepreneur</h3>
+            <p>Je recherche des clients, des fournisseurs, des partenaires, des opportunités d’affaires et un réseau professionnel.</p>
+            <p class="rec-acc__orient"><strong>Orientation :</strong> adhésion REC 242 et mise en relation REC 242 Connect.</p>
+            <a class="rec-acc__btn" href="#adhesion">Rejoindre le REC</a>
+          </article>
+
+          <article class="rec-acc__card rec-acc__card--featured">
+            <span class="rec-acc__badge">Diagnostic</span>
+            <div class="rec-acc__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12.5h18"/></svg>
+            </div>
+            <h3>J’ai besoin d’un accompagnement</h3>
+            <p>Je veux créer, structurer ou développer une entreprise, ou faire étudier un projet.</p>
+            <p class="rec-acc__orient"><strong>Orientation :</strong> diagnostic de votre projet, puis accompagnement personnalisé.</p>
+            <a class="rec-acc__btn" href="#diagnostic" data-diag="projet">Demander un diagnostic de projet</a>
+          </article>
+
+          <article class="rec-acc__card">
+            <div class="rec-acc__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 20h18"/></svg>
+            </div>
+            <h3>Je souhaite investir au Congo</h3>
+            <p>Je recherche des projets agricoles, immobiliers ou entrepreneuriaux à étudier.</p>
+            <p class="rec-acc__orient"><strong>Orientation :</strong> diagnostic de l’investissement, analyse des risques et rendez-vous spécialisé.</p>
+            <a class="rec-acc__btn" href="#diagnostic" data-diag="investissement">Demander un diagnostic d’investissement</a>
+          </article>
+        </div>
+
+        <div class="rec-diag" id="diagnostic" data-reveal>
+          <div class="rec-diag__intro">
+            <span class="eyebrow">Diagnostic</span>
+            <h3>Faites étudier votre projet ou votre investissement</h3>
+            <p>Le diagnostic permet de faire le point avant d’agir : où en est le projet, ce qu’il faut pour le réussir, les risques à anticiper et les prochaines étapes.</p>
+            <ul class="rec-diag__steps">
+              <li><span>1</span>Vous décrivez votre projet ou votre investissement.</li>
+              <li><span>2</span>L’équipe REC 242 étudie votre demande et vous recontacte.</li>
+              <li><span>3</span>Nous vous proposons un rendez-vous et les modalités du diagnostic.</li>
+            </ul>
+            <p class="rec-diag__note">Le diagnostic est une prestation payante : son tarif vous est communiqué après étude de votre demande. Vous souhaitez seulement vous informer&nbsp;? Rejoignez gratuitement la communauté via le formulaire d’adhésion.</p>
+          </div>
+
+          <form class="rec-diag__form" id="diagForm">
+            <fieldset class="rec-diag__type">
+              <legend>Type de diagnostic</legend>
+              <label><input type="radio" name="type" value="Diagnostic de projet" checked> Un projet ou une entreprise</label>
+              <label><input type="radio" name="type" value="Diagnostic d'investissement"> Un investissement</label>
+            </fieldset>
+            <label>Nom et prénom<input type="text" name="nom" placeholder="Votre nom" required></label>
+            <label>Téléphone / WhatsApp<input type="tel" name="tel" placeholder="Ex. +242 ..." required></label>
+            <label>Secteur
+              <select name="secteur" required>
+                <option value="">Choisir…</option>
+                <option>Agriculture / élevage</option>
+                <option>Immobilier</option>
+                <option>Commerce</option>
+                <option>Services</option>
+                <option>Numérique</option>
+                <option>Industrie / transformation</option>
+                <option>Autre</option>
+              </select>
+            </label>
+            <label>Décrivez votre projet en quelques lignes<textarea name="projet" rows="4" placeholder="Votre idée, où vous en êtes, ce dont vous avez besoin…" required></textarea></label>
+            <div class="rec-diag__row">
+              <label>Budget indicatif
+                <select name="budget">
+                  <option value="">Non défini</option>
+                  <option>Moins de 1 million FCFA</option>
+                  <option>1 à 5 millions FCFA</option>
+                  <option>5 à 20 millions FCFA</option>
+                  <option>Plus de 20 millions FCFA</option>
+                </select>
+              </label>
+              <label>Délai envisagé
+                <select name="delai">
+                  <option value="">Non défini</option>
+                  <option>Moins de 3 mois</option>
+                  <option>3 à 6 mois</option>
+                  <option>6 à 12 mois</option>
+                  <option>Plus d'un an</option>
+                </select>
+              </label>
+            </div>
+            <button type="submit" class="btn full">Envoyer ma demande de diagnostic</button>
+            <p class="form-note">WhatsApp s’ouvre avec votre demande déjà rédigée : il vous suffit d’appuyer sur «&nbsp;Envoyer&nbsp;».</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .rec-acc { padding: 88px 0; background: var(--paper-alt, #f3f6fa); }
+      .rec-acc__head { max-width: 680px; margin: 0 auto 40px; text-align: center; }
+      .rec-acc__head h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin: 0 0 14px; }
+      .rec-acc__head p { color: var(--ink-soft); margin: 0; }
+      .rec-acc__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+      .rec-acc__card { position: relative; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 26px 24px; }
+      .rec-acc__icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--paper-alt); color: var(--forest); margin-bottom: 16px; }
+      .rec-acc__card h3 { font-size: 1.2rem; margin: 0 0 10px; }
+      .rec-acc__card p { color: var(--ink-soft); line-height: 1.55; margin: 0 0 14px; }
+      .rec-acc__card p.rec-acc__orient { font-size: .92rem; border-top: 1px solid var(--line); padding-top: 14px; flex-grow: 1; }
+      .rec-acc__orient strong { color: var(--forest); }
+      .rec-acc__btn { display: block; text-align: center; text-decoration: none; font-weight: 700; border-radius: 10px; padding: 13px 12px; background: var(--forest); color: #fff; transition: transform .15s ease, filter .15s ease; }
+      .rec-acc__btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+      .rec-acc__card--featured { background: linear-gradient(160deg, #163450 0%, #0f2438 100%); border-color: rgba(226,196,142,.4); }
+      .rec-acc__card--featured h3 { color: #fff; }
+      .rec-acc__card--featured p { color: rgba(255,255,255,.85); }
+      .rec-acc__card--featured p.rec-acc__orient { border-top-color: rgba(255,255,255,.18); }
+      .rec-acc__card--featured .rec-acc__orient strong { color: var(--gold-soft); }
+      .rec-acc__card--featured .rec-acc__icon { background: rgba(255,255,255,.1); color: var(--gold-soft); }
+      .rec-acc__card--featured .rec-acc__btn { background: linear-gradient(180deg, #ecd3a3, #d9b77a); color: #0f2438; }
+      .rec-acc__badge { position: absolute; top: -12px; left: 24px; background: #ecd3a3; color: #0f2438; font-size: .75rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+      .rec-diag { margin-top: 48px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 36px; background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 40px; scroll-margin-top: 110px; }
+      .rec-diag__intro h3 { font-size: clamp(1.35rem, 2.2vw, 1.7rem); margin: 6px 0 12px; }
+      .rec-diag__intro p { color: var(--ink-soft); line-height: 1.6; margin: 0 0 18px; }
+      .rec-diag__steps { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 12px; }
+      .rec-diag__steps li { display: flex; gap: 12px; align-items: flex-start; color: var(--ink); line-height: 1.45; }
+      .rec-diag__steps span { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--forest); color: var(--gold-soft); font-weight: 700; font-size: .85rem; }
+      .rec-diag__intro p.rec-diag__note { background: #fff8e6; border: 1px solid rgba(217,183,122,.5); border-radius: 12px; padding: 14px 16px; font-size: .92rem; color: #5a4512; margin: 0; }
+      .rec-diag__form { display: grid; gap: 14px; }
+      .rec-diag__form label { display: grid; gap: 6px; font-size: .9rem; font-weight: 600; color: var(--ink); }
+      .rec-diag__form input[type=text], .rec-diag__form input[type=tel], .rec-diag__form select, .rec-diag__form textarea { width: 100%; font: inherit; font-weight: 400; padding: 13px 14px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--paper-alt); color: var(--ink); }
+      .rec-diag__form textarea { resize: vertical; }
+      .rec-diag__form input:focus, .rec-diag__form select:focus, .rec-diag__form textarea:focus { border-color: var(--forest); outline: none; background: #fff; }
+      .rec-diag__type { border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .rec-diag__type legend { font-size: .9rem; font-weight: 600; margin-bottom: 8px; padding: 0; }
+      .rec-diag__type label { display: flex; align-items: center; gap: 8px; font-weight: 600; padding: 12px; border: 1px solid var(--line-strong); border-radius: 10px; cursor: pointer; background: var(--paper-alt); }
+      .rec-diag__type label:has(input:checked) { border-color: var(--forest); background: #fff; box-shadow: inset 0 0 0 1px var(--forest); }
+      .rec-diag__type input { accent-color: var(--forest); }
+      .rec-diag__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      @media (max-width: 980px) { .rec-acc__grid { grid-template-columns: 1fr; gap: 24px; } .rec-diag { grid-template-columns: 1fr; padding: 28px; } }
+      @media (max-width: 600px) { .rec-acc { padding: 64px 0; } .rec-diag { padding: 22px 18px; gap: 26px; } .rec-diag__type, .rec-diag__row { grid-template-columns: 1fr; } }
+    </style>
+
+    <script>
+      (function () {
+        var form = document.getElementById("diagForm");
+        if (!form) return;
+        document.querySelectorAll("[data-diag]").forEach(function (a) {
+          a.addEventListener("click", function () {
+            var v = a.getAttribute("data-diag") === "investissement" ? "Diagnostic d'investissement" : "Diagnostic de projet";
+            var r = form.querySelector('input[name="type"][value="' + v + '"]');
+            if (r) r.checked = true;
+          });
+        });
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var f = new FormData(form);
+          var lines = [
+            "Bonjour REC 242, je souhaite faire une demande de diagnostic.",
+            "",
+            "Type : " + f.get("type"),
+            "Nom : " + f.get("nom"),
+            "Téléphone : " + f.get("tel"),
+            "Secteur : " + f.get("secteur"),
+            "Projet : " + f.get("projet"),
+            "Budget indicatif : " + (f.get("budget") || "Non défini"),
+            "Délai envisagé : " + (f.get("delai") || "Non défini")
+          ];
+          window.open("https://wa.me/242067257950?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
+        });
+      })();
+    </script>
+    <!-- ===== FIN SECTION ACCOMPAGNEMENT & DIAGNOSTIC ===== -->
 
     <section class="section dark" id="organisation">
       <div class="container">
