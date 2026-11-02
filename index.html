@@ -892,7 +892,7 @@
   <!-- ===== BARRE MOBILE : ADHÉSION + RENCONTRE ===== -->
   <div class="rec-stickybar" id="recStickyBar">
     <a class="rec-stickybar__join" href="#adhesion">Rejoindre le REC</a>
-    <a class="rec-stickybar__event" href="https://forms.gle/eZKgJX41zU7dG8uY8" target="_blank" rel="noopener">Rencontre du 21 nov.</a>
+    <a class="rec-stickybar__event" href="https://forms.gle/eZKgJX41zU7dG8uY8" target="_blank" rel="noopener">Inscription à la rencontre<br><span>du 21 novembre</span></a>
   </div>
   <style>
     .rec-stickybar { display: none; }
@@ -901,7 +901,9 @@
       .rec-stickybar.is-hidden { transform: translateY(110%); }
       .rec-stickybar a { flex: 1; text-align: center; text-decoration: none; font-weight: 700; font-size: .95rem; border-radius: 10px; padding: 13px 8px; }
       .rec-stickybar__join { background: linear-gradient(180deg, #ecd3a3, #d9b77a); color: #0f2438; }
-      .rec-stickybar__event { color: #fff; border: 1px solid rgba(236,211,163,.6); }
+      .rec-stickybar__event { color: #fff; border: 1px solid rgba(236,211,163,.6); font-size: .8rem !important; line-height: 1.25; padding: 8px 4px !important; white-space: nowrap; letter-spacing: -.01em; display: flex; flex-direction: column; justify-content: center; }
+      .rec-stickybar__event span { color: #ecd3a3; font-size: .8rem; }
+      .rec-stickybar__join { display: flex; align-items: center; justify-content: center; }
       body { padding-bottom: 76px; }
     }
   </style>
