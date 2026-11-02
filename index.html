@@ -50,7 +50,7 @@
                 <span class="agenda-tag">Atelier · 35 000 FCFA</span>
                 <h4>Comment lancer son activité agricole</h4>
                 <p>Samedi 5 décembre 2026, 9 h – 14 h · Brazzaville. Choisir sa filière, trouver son terrain, bâtir son budget et vendre sa production.</p>
-                <a class="agenda-link" href="#atelier-agriculture">Je m'inscris →</a>
+                <a class="agenda-link" href="#atelier-agriculture">Je me préinscris →</a>
               </div>
             </li>
             <li class="agenda-item">
@@ -59,7 +59,7 @@
                 <span class="agenda-tag">Atelier · 35 000 FCFA</span>
                 <h4>De l'idée à l'action</h4>
                 <p>Mardi 15 décembre 2026, 9 h – 14 h · Brazzaville. Clarifier son idée, la tester et repartir avec son plan d'action sur 30 jours.</p>
-                <a class="agenda-link" href="#atelier-idee-action">Je m'inscris →</a>
+                <a class="agenda-link" href="#atelier-idee-action">Je me préinscris →</a>
               </div>
             </li>
             <li class="agenda-item">
@@ -277,6 +277,7 @@
               <li><strong>Lieu</strong><span>Brazzaville (adresse communiquée à la confirmation)</span></li>
               <li><strong>Format</strong><span>Atelier pratique en petit groupe · places limitées</span></li>
               <li><strong>Tarif</strong><span>35 000 FCFA par personne</span></li>
+              <li><strong>Paiement</strong><span>Au plus tard le mercredi 25 novembre 2026</span></li>
             </ul>
             <h3>Au programme</h3>
             <ol class="rec-atl__prog">
@@ -291,7 +292,8 @@
           </div>
 
           <form class="rec-atl__form" id="atelierForm">
-            <h3>Je m’inscris à l’atelier</h3>
+            <h3>Je me préinscris à l’atelier</h3>
+            <p class="rec-atl__pre">Préinscription gratuite et sans engagement. Votre place est confirmée à réception du paiement de 35&nbsp;000&nbsp;FCFA, <strong>au plus tard le mercredi 25&nbsp;novembre 2026</strong>.</p>
             <label>Nom et prénom<input type="text" name="nom" placeholder="Votre nom" required></label>
             <label>Téléphone / WhatsApp<input type="tel" name="tel" placeholder="Ex. +242 ..." required></label>
             <label>Ville / Pays<input type="text" name="ville" placeholder="Ex : Brazzaville, Congo" required></label>
@@ -314,8 +316,8 @@
                 <option>Autre</option>
               </select>
             </label>
-            <button type="submit" class="btn full">Réserver ma place – 35 000 FCFA</button>
-            <p class="form-note">WhatsApp s’ouvre avec votre inscription déjà rédigée : appuyez sur «&nbsp;Envoyer&nbsp;». L’équipe REC 242 vous confirme votre place, le lieu et les modalités de paiement (35&nbsp;000&nbsp;FCFA).</p>
+            <button type="submit" class="btn full">Je me préinscris</button>
+            <p class="form-note">WhatsApp s’ouvre avec votre préinscription déjà rédigée : appuyez sur «&nbsp;Envoyer&nbsp;». L’équipe REC 242 vous recontacte avec les modalités de paiement et l’adresse. Places limitées : les premiers à payer sont les premiers servis. Après la date limite, les places non payées sont libérées.</p>
           </form>
         </div>
       </div>
@@ -337,7 +339,8 @@
       .rec-atl__prog { margin: 0; padding-left: 20px; display: grid; gap: 10px; color: rgba(255,255,255,.88); line-height: 1.55; }
       .rec-atl__prog b { color: #fff; }
       .rec-atl__form { display: grid; gap: 14px; background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 32px 28px; box-shadow: var(--shadow-soft); }
-      .rec-atl__form h3 { font-size: 1.3rem; margin: 0 0 4px; }
+      .rec-atl__form h3 { font-size: 1.3rem; margin: 0; }
+      .rec-atl__pre { margin: 0 0 4px; background: #fff8e6; border: 1px solid rgba(217,183,122,.5); border-radius: 10px; padding: 12px 14px; font-size: .9rem; color: #5a4512; }
       .rec-atl__form label { display: grid; gap: 6px; font-size: .9rem; font-weight: 600; }
       .rec-atl__form input, .rec-atl__form select { width: 100%; font: inherit; font-weight: 400; padding: 13px 14px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--paper-alt); color: var(--ink); }
       .rec-atl__form input:focus, .rec-atl__form select:focus { border-color: var(--forest); outline: none; background: #fff; }
@@ -354,7 +357,7 @@
           e.preventDefault();
           var f = new FormData(form);
           var msg = [
-            "Bonjour REC 242, je souhaite m'inscrire à l'atelier « Comment lancer son activité agricole » du samedi 5 décembre 2026.",
+            "Bonjour REC 242, je souhaite me préinscrire à l'atelier « Comment lancer son activité agricole » du samedi 5 décembre 2026.",
             "",
             "Nom : " + f.get("nom"),
             "Téléphone : " + f.get("tel"),
@@ -385,6 +388,7 @@
               <li><strong>Lieu</strong><span>Brazzaville (adresse communiquée à la confirmation)</span></li>
               <li><strong>Format</strong><span>Atelier pratique en petit groupe · places limitées</span></li>
               <li><strong>Tarif</strong><span>35 000 FCFA par personne</span></li>
+              <li><strong>Paiement</strong><span>Au plus tard le samedi 5 décembre 2026</span></li>
             </ul>
             <h3>Au programme</h3>
             <ol class="rec-atl__prog">
@@ -399,7 +403,8 @@
           </div>
 
           <form class="rec-atl__form" id="atelierForm2">
-            <h3>Je m’inscris à l’atelier</h3>
+            <h3>Je me préinscris à l’atelier</h3>
+            <p class="rec-atl__pre">Préinscription gratuite et sans engagement. Votre place est confirmée à réception du paiement de 35&nbsp;000&nbsp;FCFA, <strong>au plus tard le samedi 5&nbsp;décembre 2026</strong>.</p>
             <label>Nom et prénom<input type="text" name="nom" placeholder="Votre nom" required></label>
             <label>Téléphone / WhatsApp<input type="tel" name="tel" placeholder="Ex. +242 ..." required></label>
             <label>Ville / Pays<input type="text" name="ville" placeholder="Ex : Brazzaville, Congo" required></label>
@@ -412,8 +417,8 @@
               </select>
             </label>
             <label>Votre idée en une phrase<input type="text" name="filiere" placeholder="Ex : ouvrir un atelier de couture"></label>
-            <button type="submit" class="btn full">Réserver ma place – 35 000 FCFA</button>
-            <p class="form-note">WhatsApp s’ouvre avec votre inscription déjà rédigée : appuyez sur «&nbsp;Envoyer&nbsp;». L’équipe REC 242 vous confirme votre place, le lieu et les modalités de paiement (35&nbsp;000&nbsp;FCFA).</p>
+            <button type="submit" class="btn full">Je me préinscris</button>
+            <p class="form-note">WhatsApp s’ouvre avec votre préinscription déjà rédigée : appuyez sur «&nbsp;Envoyer&nbsp;». L’équipe REC 242 vous recontacte avec les modalités de paiement et l’adresse. Places limitées : les premiers à payer sont les premiers servis. Après la date limite, les places non payées sont libérées.</p>
           </form>
         </div>
       </div>
@@ -428,7 +433,7 @@
           e.preventDefault();
           var f = new FormData(form);
           var msg = [
-            "Bonjour REC 242, je souhaite m'inscrire à l'atelier « De l’idée à l’action » du mardi 15 décembre 2026.",
+            "Bonjour REC 242, je souhaite me préinscrire à l'atelier « De l’idée à l’action » du mardi 15 décembre 2026.",
             "",
             "Nom : " + f.get("nom"),
             "Téléphone : " + f.get("tel"),
