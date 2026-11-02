@@ -45,10 +45,21 @@
               </div>
             </li>
             <li class="agenda-item">
-              <div class="agenda-date"><strong>Déc.</strong><span>2026</span></div>
+              <div class="agenda-date"><strong>5</strong><span>déc.</span></div>
               <div>
-                <span class="agenda-tag">Atelier</span>
-                <h4>Premier atelier en agriculture</h4>
+                <span class="agenda-tag">Atelier · 35 000 FCFA</span>
+                <h4>Comment lancer son activité agricole</h4>
+                <p>Samedi 5 décembre 2026, 9 h – 14 h · Brazzaville. Choisir sa filière, trouver son terrain, bâtir son budget et vendre sa production.</p>
+                <a class="agenda-link" href="#atelier-agriculture">Je m'inscris →</a>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <div class="agenda-date"><strong>15</strong><span>déc.</span></div>
+              <div>
+                <span class="agenda-tag">Atelier · 35 000 FCFA</span>
+                <h4>De l'idée à l'action</h4>
+                <p>Mardi 15 décembre 2026, 9 h – 14 h · Brazzaville. Clarifier son idée, la tester et repartir avec son plan d'action sur 30 jours.</p>
+                <a class="agenda-link" href="#atelier-idee-action">Je m'inscris →</a>
               </div>
             </li>
             <li class="agenda-item">
@@ -248,6 +259,188 @@
       }
     </style>
     <!-- ===== FIN SECTION DEVENIR PARTENAIRE ===== -->
+
+    <!-- ===== SECTION ATELIER AGRICULTURE 10 DÉC. ===== -->
+    <section class="rec-atl" id="atelier-agriculture">
+      <div class="container">
+        <div class="rec-atl__head" data-reveal>
+          <span class="eyebrow">Atelier pratique · Samedi 5 décembre 2026 · 35 000 FCFA</span>
+          <h2>Comment lancer son activité agricole</h2>
+          <p>Un atelier concret pour passer de l’envie d’investir dans l’agriculture à un projet qui tient la route : choisir sa filière, trouver son terrain, bâtir son budget et vendre sa production.</p>
+        </div>
+
+        <div class="rec-atl__wrap" data-reveal>
+          <div class="rec-atl__card">
+            <ul class="rec-atl__facts">
+              <li><strong>Date</strong><span>Samedi 5 décembre 2026</span></li>
+              <li><strong>Horaire</strong><span>De 9 h à 14 h, avec une pause à midi</span></li>
+              <li><strong>Lieu</strong><span>Brazzaville (adresse communiquée à la confirmation)</span></li>
+              <li><strong>Format</strong><span>Atelier pratique en petit groupe · places limitées</span></li>
+              <li><strong>Tarif</strong><span>35 000 FCFA par personne</span></li>
+            </ul>
+            <h3>Au programme</h3>
+            <ol class="rec-atl__prog">
+              <li><b>Choisir sa filière</b> : maraîchage, élevage porcin, poulets de chair, pisciculture… selon son budget et son marché.</li>
+              <li><b>Trouver et sécuriser un terrain</b> : accès à l’eau, distance du marché, papiers à vérifier.</li>
+              <li><b>Bâtir son budget de départ</b> : calculer ses coûts et la rentabilité d’un premier cycle.</li>
+              <li><b>Vendre sa production</b> : trouver ses acheteurs avant même de produire.</li>
+              <li><b>Les erreurs à éviter</b> quand on démarre, à partir de cas réels.</li>
+            </ol>
+            <h3>Pour qui ?</h3>
+            <p>Porteurs de projets, salariés qui veulent se lancer à côté de leur emploi, entrepreneurs qui veulent se diversifier, Congolais de la diaspora qui souhaitent investir au pays.</p>
+          </div>
+
+          <form class="rec-atl__form" id="atelierForm">
+            <h3>Je m’inscris à l’atelier</h3>
+            <label>Nom et prénom<input type="text" name="nom" placeholder="Votre nom" required></label>
+            <label>Téléphone / WhatsApp<input type="tel" name="tel" placeholder="Ex. +242 ..." required></label>
+            <label>Ville / Pays<input type="text" name="ville" placeholder="Ex : Brazzaville, Congo" required></label>
+            <label>Où en êtes-vous ?
+              <select name="situation" required>
+                <option value="">Choisir…</option>
+                <option>J’ai une idée, je n’ai pas encore commencé</option>
+                <option>J’ai déjà un terrain</option>
+                <option>J’ai déjà démarré une activité agricole</option>
+                <option>Je veux investir (diaspora, salarié…)</option>
+              </select>
+            </label>
+            <label>Filière qui vous intéresse
+              <select name="filiere">
+                <option value="">Je ne sais pas encore</option>
+                <option>Maraîchage</option>
+                <option>Élevage porcin</option>
+                <option>Poulets de chair / volaille</option>
+                <option>Pisciculture</option>
+                <option>Autre</option>
+              </select>
+            </label>
+            <button type="submit" class="btn full">Réserver ma place – 35 000 FCFA</button>
+            <p class="form-note">WhatsApp s’ouvre avec votre inscription déjà rédigée : appuyez sur «&nbsp;Envoyer&nbsp;». L’équipe REC 242 vous confirme votre place, le lieu et les modalités de paiement (35&nbsp;000&nbsp;FCFA).</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .rec-atl { padding: 88px 0; }
+      .rec-atl__head { max-width: 700px; margin: 0 auto 40px; text-align: center; }
+      .rec-atl__head h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin: 0 0 14px; }
+      .rec-atl__head p { color: var(--ink-soft); margin: 0; }
+      .rec-atl__wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; align-items: start; }
+      .rec-atl__card { color: #fff; border-radius: 20px; padding: 34px 32px; background: radial-gradient(circle at 90% 0%, rgba(226,196,142,.16), transparent 45%), linear-gradient(160deg, #163450 0%, #0f2438 100%); border: 1px solid rgba(226,196,142,.25); box-shadow: 0 14px 36px rgba(15,36,56,.25); }
+      .rec-atl__card h3 { color: var(--gold-soft); font-size: 1.1rem; margin: 26px 0 12px; }
+      .rec-atl__card p { color: rgba(255,255,255,.85); line-height: 1.6; margin: 0; }
+      .rec-atl__facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+      .rec-atl__facts li { display: grid; grid-template-columns: 82px 1fr; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.12); }
+      .rec-atl__facts strong { color: var(--gold-soft); font-size: .9rem; }
+      .rec-atl__facts span { color: #fff; }
+      .rec-atl__prog { margin: 0; padding-left: 20px; display: grid; gap: 10px; color: rgba(255,255,255,.88); line-height: 1.55; }
+      .rec-atl__prog b { color: #fff; }
+      .rec-atl__form { display: grid; gap: 14px; background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 32px 28px; box-shadow: var(--shadow-soft); }
+      .rec-atl__form h3 { font-size: 1.3rem; margin: 0 0 4px; }
+      .rec-atl__form label { display: grid; gap: 6px; font-size: .9rem; font-weight: 600; }
+      .rec-atl__form input, .rec-atl__form select { width: 100%; font: inherit; font-weight: 400; padding: 13px 14px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--paper-alt); color: var(--ink); }
+      .rec-atl__form input:focus, .rec-atl__form select:focus { border-color: var(--forest); outline: none; background: #fff; }
+      .rec-atl--alt { background: var(--paper-alt); padding-top: 72px; }
+      @media (max-width: 980px) { .rec-atl__wrap { grid-template-columns: 1fr; } }
+      @media (max-width: 600px) { .rec-atl { padding: 64px 0; } .rec-atl__card { padding: 26px 20px; } .rec-atl__form { padding: 24px 18px; } .rec-atl__facts li { grid-template-columns: 1fr; gap: 2px; } }
+    </style>
+
+    <script>
+      (function () {
+        var form = document.getElementById("atelierForm");
+        if (!form) return;
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var f = new FormData(form);
+          var msg = [
+            "Bonjour REC 242, je souhaite m'inscrire à l'atelier « Comment lancer son activité agricole » du samedi 5 décembre 2026.",
+            "",
+            "Nom : " + f.get("nom"),
+            "Téléphone : " + f.get("tel"),
+            "Ville / Pays : " + f.get("ville"),
+            "Où j'en suis : " + f.get("situation"),
+            "Filière : " + (f.get("filiere") || "Je ne sais pas encore")
+          ].join("\n");
+          window.open("https://wa.me/242067257950?text=" + encodeURIComponent(msg), "_blank", "noopener");
+        });
+      })();
+    </script>
+    <!-- ===== FIN SECTION ATELIER AGRICULTURE ===== -->
+
+    <!-- ===== SECTION ATELIER IDÉE À L'ACTION 15 DÉC. ===== -->
+    <section class="rec-atl rec-atl--alt" id="atelier-idee-action">
+      <div class="container">
+        <div class="rec-atl__head" data-reveal>
+          <span class="eyebrow">Atelier pratique · Mardi 15 décembre 2026 · 35 000 FCFA</span>
+          <h2>De l’idée à l’action : lancer son projet pas à pas</h2>
+          <p>Vous avez une idée depuis longtemps mais vous n’avez jamais commencé ? Cet atelier vous aide à la clarifier, la tester et repartir avec votre propre plan d’action.</p>
+        </div>
+
+        <div class="rec-atl__wrap" data-reveal>
+          <div class="rec-atl__card">
+            <ul class="rec-atl__facts">
+              <li><strong>Date</strong><span>Mardi 15 décembre 2026</span></li>
+              <li><strong>Horaire</strong><span>De 9 h à 14 h, avec une pause à midi</span></li>
+              <li><strong>Lieu</strong><span>Brazzaville (adresse communiquée à la confirmation)</span></li>
+              <li><strong>Format</strong><span>Atelier pratique en petit groupe · places limitées</span></li>
+              <li><strong>Tarif</strong><span>35 000 FCFA par personne</span></li>
+            </ul>
+            <h3>Au programme</h3>
+            <ol class="rec-atl__prog">
+              <li><b>Clarifier son idée</b> : quel problème je résous, pour qui, et pourquoi on m’achèterait.</li>
+              <li><b>Tester avant d’investir</b> : vérifier qu’il existe des clients, avec peu de moyens.</li>
+              <li><b>Démarrer petit</b> : ce qu’il faut vraiment pour commencer, et ce qui peut attendre.</li>
+              <li><b>Bâtir son plan d’action sur 30 jours</b> : étapes, dates et objectifs simples.</li>
+              <li><b>Lever les blocages</b> : peur de l’échec, manque d’argent, « je ne suis pas prêt ».</li>
+            </ol>
+            <h3>Pour qui ?</h3>
+            <p>Ceux qui ont une idée mais n’ont jamais franchi le pas, les salariés qui veulent créer leur activité, les jeunes porteurs de projets.</p>
+          </div>
+
+          <form class="rec-atl__form" id="atelierForm2">
+            <h3>Je m’inscris à l’atelier</h3>
+            <label>Nom et prénom<input type="text" name="nom" placeholder="Votre nom" required></label>
+            <label>Téléphone / WhatsApp<input type="tel" name="tel" placeholder="Ex. +242 ..." required></label>
+            <label>Ville / Pays<input type="text" name="ville" placeholder="Ex : Brazzaville, Congo" required></label>
+            <label>Où en êtes-vous ?
+              <select name="situation" required>
+                <option value="">Choisir…</option>
+                <option>J’ai une idée, je n’ai pas encore commencé</option>
+                <option>J’ai commencé, mais je bloque</option>
+                <option>Je cherche encore une idée</option>
+              </select>
+            </label>
+            <label>Votre idée en une phrase<input type="text" name="filiere" placeholder="Ex : ouvrir un atelier de couture"></label>
+            <button type="submit" class="btn full">Réserver ma place – 35 000 FCFA</button>
+            <p class="form-note">WhatsApp s’ouvre avec votre inscription déjà rédigée : appuyez sur «&nbsp;Envoyer&nbsp;». L’équipe REC 242 vous confirme votre place, le lieu et les modalités de paiement (35&nbsp;000&nbsp;FCFA).</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    
+    <script>
+      (function () {
+        var form = document.getElementById("atelierForm2");
+        if (!form) return;
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var f = new FormData(form);
+          var msg = [
+            "Bonjour REC 242, je souhaite m'inscrire à l'atelier « De l’idée à l’action » du mardi 15 décembre 2026.",
+            "",
+            "Nom : " + f.get("nom"),
+            "Téléphone : " + f.get("tel"),
+            "Ville / Pays : " + f.get("ville"),
+            "Où j'en suis : " + f.get("situation"),
+            "Mon idée : " + (f.get("filiere") || "Non précisée")
+          ].join("\n");
+          window.open("https://wa.me/242067257950?text=" + encodeURIComponent(msg), "_blank", "noopener");
+        });
+      })();
+    </script>
+    <!-- ===== FIN SECTION ATELIER IDÉE À L'ACTION ===== -->
 
     <section class="section" id="mission">
       <div class="container">
