@@ -394,6 +394,75 @@
       </div>
     </section>
 
+    <!-- ===== SECTION LA FORCE DU RÉSEAU ===== -->
+    <section class="rec-force" id="force-du-reseau">
+      <style>
+        .rec-force { padding: 96px 0; background: linear-gradient(160deg, #163450 0%, #0f2438 100%); color: #fff; }
+        .rec-force__head { max-width: 760px; margin-bottom: 44px; }
+        .rec-force .eyebrow { color: var(--gold-soft); }
+        .rec-force h2 { color: #fff; margin: 10px 0 14px; }
+        .rec-force__head .rec-force__hook { font-family: var(--font-display); font-size: 1.25rem; color: var(--gold); margin: 0 0 14px; font-weight: 600; }
+        .rec-force__head p { color: rgba(255,255,255,0.75); margin: 0; }
+        .rec-force__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .rec-force__item { background: rgba(255,255,255,0.06); border: 1px solid rgba(236,211,163,0.22); border-radius: var(--radius); padding: 26px 24px; transition: transform .2s ease, border-color .2s ease; }
+        .rec-force__item:hover { transform: translateY(-4px); border-color: var(--gold); }
+        .rec-force__ico { width: 46px; height: 46px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+        .rec-force__ico svg { width: 22px; height: 22px; stroke: #0f2438; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .rec-force__item h3 { color: #fff; font-family: var(--font-display); font-size: 1.08rem; margin: 0 0 8px; }
+        .rec-force__item p { color: rgba(255,255,255,0.72); font-size: 0.93rem; margin: 0; line-height: 1.55; }
+        .rec-force__foot { margin-top: 36px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 22px 26px; border-radius: var(--radius); background: rgba(217,183,122,0.12); }
+        .rec-force__foot p { margin: 0; color: #fff; max-width: 60ch; font-size: 0.97rem; }
+        .rec-force__foot strong { color: var(--gold-soft); }
+        .rec-force__cta { display: inline-block; background: var(--gold); color: #0f2438; font-weight: 700; padding: 13px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+        @media (max-width: 900px) { .rec-force__grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .rec-force { padding: 64px 0; } .rec-force__grid { grid-template-columns: 1fr; } .rec-force__head .rec-force__hook { font-size: 1.1rem; } .rec-force__item { display: grid; grid-template-columns: 46px 1fr; column-gap: 16px; padding: 20px; } .rec-force__ico { margin: 0; grid-row: span 2; } .rec-force__item h3 { align-self: center; } .rec-force__cta { width: 100%; text-align: center; } }
+      </style>
+      <div class="container">
+        <div class="rec-force__head" data-reveal>
+          <span class="eyebrow">La force du réseau</span>
+          <h2>Les avantages d’entreprendre en réseau</h2>
+          <p class="rec-force__hook">Seul, vous êtes un client. Ensemble, nous sommes un marché.</p>
+          <p>Ce qu’un entrepreneur ne peut pas obtenir seul, un réseau de plusieurs centaines d’entrepreneurs peut le négocier. REC 242 met le poids du groupe au service de chacun de ses membres.</p>
+        </div>
+        <div class="rec-force__grid" data-reveal>
+          <article class="rec-force__item">
+            <div class="rec-force__ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></div>
+            <h3>Achats groupés</h3>
+            <p>Intrants agricoles, emballages, matériel, impressions : en achetant ensemble, nous obtenons de meilleurs prix auprès des fournisseurs.</p>
+          </article>
+          <article class="rec-force__item">
+            <div class="rec-force__ico"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></div>
+            <h3>Voyages d’affaires groupés</h3>
+            <p>Salons, foires et missions de prospection à l’étranger à tarif de groupe : billets, hébergement et démarches facilités.</p>
+          </article>
+          <article class="rec-force__item">
+            <div class="rec-force__ico"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V10"/><path d="M19 21V10"/><path d="M9 21V10"/><path d="M15 21V10"/><path d="m2 10 10-6 10 6"/></svg></div>
+            <h3>Tarifs préférentiels bancaires</h3>
+            <p>Ouverture de compte, crédit, terminaux de paiement : des conditions négociées pour nos membres auprès de banques partenaires.</p>
+          </article>
+          <article class="rec-force__item">
+            <div class="rec-force__ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3>Assurances négociées</h3>
+            <p>Santé, matériel, stock, véhicules : des couvertures adaptées aux entrepreneurs, à des conditions de groupe.</p>
+          </article>
+          <article class="rec-force__item">
+            <div class="rec-force__ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <h3>Offres des grandes entreprises</h3>
+            <p>Télécoms, transport, logistique, fournisseurs : des avantages réservés aux membres grâce à nos partenariats.</p>
+          </article>
+          <article class="rec-force__item">
+            <div class="rec-force__ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></div>
+            <h3>Le réflexe 242</h3>
+            <p>Quand un membre a besoin d’un produit ou d’un service, il pense d’abord au réseau. Les affaires circulent entre nous.</p>
+          </article>
+        </div>
+        <div class="rec-force__foot" data-reveal>
+          <p><strong>Ces avantages se construisent avec vous.</strong> Plus nous sommes nombreux, plus nos négociations pèsent auprès des partenaires.</p>
+          <a class="rec-force__cta" href="#adhesion">Je veux rejoindre le REC</a>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="actions">
       <div class="container">
         <div class="section-heading compact" data-reveal>
